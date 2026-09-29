@@ -144,3 +144,121 @@ a{color:inherit;text-decoration:none}
 .personal-icon{border:0!important;background:transparent!important;overflow:visible!important;box-shadow:none!important;width:28px;height:28px;display:grid;place-items:center;margin-bottom:5px}
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 @media(max-width:520px){.brand-mark{width:52px;height:52px}}
+
+/* HITMAN HQ — API / MOBILE / GMAIL POLISH */
+
+.contact-icon img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+  display: block;
+  border-radius: 7px;
+}
+
+@media (max-width: 850px) {
+  .community-panel {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .community-main,
+  .community-details {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .community-main > div:last-child {
+    min-width: 0;
+  }
+
+  .community-main h2 {
+    overflow-wrap: anywhere;
+  }
+
+  .community-lead {
+    overflow-wrap: anywhere;
+  }
+
+  .discord-card-main,
+  .discord-quote {
+    min-width: 0;
+    overflow: hidden;
+  }
+}
+
+@media (max-width: 520px) {
+  .community {
+    width: min(1180px, 92%);
+    padding-top: 65px;
+    padding-bottom: 80px;
+  }
+
+  .community-panel {
+    padding: 24px 16px !important;
+    gap: 24px !important;
+    border-radius: 0;
+  }
+
+  .community-main {
+    gap: 15px;
+  }
+
+  .discord-orb {
+    width: 58px;
+    height: 58px;
+    border-radius: 17px;
+  }
+
+  .discord-orb svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .community-main h2 {
+    font-size: 29px;
+    line-height: 1;
+  }
+
+  .community-main .community-lead {
+    font-size: 12px !important;
+    line-height: 1.55;
+  }
+
+  .community-tags {
+    gap: 5px;
+  }
+
+  .community-tags span {
+    font-size: 7px;
+    padding: 6px 7px;
+  }
+
+  .community-mini-grid {
+    gap: 6px;
+  }
+
+  .community-mini-grid div {
+    min-height: 68px;
+    padding: 9px 6px;
+  }
+
+  .community-mini-grid span {
+    font-size: 6.5px;
+  }
+
+  .discord-card-main {
+    padding: 17px !important;
+  }
+
+  .contact-icon {
+    width: 58px;
+    height: 58px;
+  }
+
+  .contact-icon img {
+    width: 42px;
+    height: 42px;
+  }
+}
