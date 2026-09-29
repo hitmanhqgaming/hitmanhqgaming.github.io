@@ -26,6 +26,8 @@ function renderGames() {
 
 const CHANNEL_ID = "UCClntt9HBQirLO6m0klTY4g";
 const CHANNEL_URL = "https://www.youtube.com/@HitmanHQGaming";
+const HITMAN_HQ_API =
+  "https://hitman-hq-api.uikeyshiva14.workers.dev";
 const RSS_URL = `https://www.youtube.com/feeds/videos.xml?channel_id=${CHANNEL_ID}`;
 const FEED_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
 // RSSHub exposes the channel with Shorts included when filterShorts=false.
@@ -157,64 +159,82 @@ function renderFeaturedShort(item) {
 
 async function loadLatestShort() {
   try {
-    const [allResponse, longResponse] = await Promise.all([
-      fetch(SHORTS_FEED_URL, { cache: "no-store" }),
-      fetch(FEED_URL, { cache: "no-store" })
-    ]);
-    if (!allResponse.ok || !longResponse.ok) throw new Error("Shorts feed unavailable");
-    const allData = await allResponse.json();
-    const longData = await longResponse.json();
-    const longIds = new Set((longData.items || []).map(youtubeId).filter(Boolean));
-    const latestShort = (allData.items || [])
-      .filter(item => {
-        const id = youtubeId(item);
-        return id && !longIds.has(id);
-      })
-      .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate))[0];
-    if (!latestShort) throw new Error("No Short found");
-    renderFeaturedShort(latestShort);
-    return;
-  } catch (_) {
-    // Fall back to the normal YouTube channel feed so the title never stays blank
-    // when the Shorts-specific proxy is unavailable.
-    try {
-      const response = await fetch(FEED_URL, { cache: "no-store" });
-      if (!response.ok) throw new Error("Channel feed unavailable");
-      const data = await response.json();
-      const latest = (data.items || [])
-        .filter(item => youtubeId(item))
-        .sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate))[0];
-      if (latest) {
-        renderFeaturedShort(latest);
-        if (featuredShortDescription) {
-          featuredShortDescription.textContent = `Latest YouTube upload • ${formatDate(latest.pubDate)}`;
-        }
-        return;
-      }
-    } catch (_) {
-      // Continue to the final static fallback below.
+    const response = await fetch(HITMAN_HQ_API, {
+      cache: "no-store"
+    });
+
+    if (!response.ok) {
+      throw new Error("HITMAN HQ API unavailable");
     }
 
-    // Final fallback: keep the existing featured Short usable and show its real
-    // YouTube title through the official oEmbed endpoint when available.
+    const data = await response.json();
+    const latest = data.latest;
+
+    if (!latest || !latest.video_id) {
+      throw new Error("No latest YouTube video found");
+    }
+
+    const item = {
+      videoId: latest.video_id,
+      title: latest.title,
+      link: latest.url,
+      thumbnail: latest.thumbnail,
+      pubDate: latest.published_at
+    };
+
+    renderFeaturedShort(item);
+
+    if (featuredShortDescription) {
+      featuredShortDescription.textContent =
+        `Latest YouTube upload • ${formatDate(latest.published_at)}`;
+    }
+
+  } catch (_) {
+    // Keep the existing featured Short usable if the API is temporarily unavailable.
     const fallbackId = "SsQA8Lw4Ztk";
+
     try {
       const response = await fetch(
-        `https://www.youtube.com/oembed?url=${encodeURIComponent(`https://www.youtube.com/shorts/${fallbackId}`)}&format=json`,
+        `https://www.youtube.com/oembed?url=${encodeURIComponent(
+          `https://www.youtube.com/shorts/${fallbackId}`
+        )}&format=json`,
         { cache: "no-store" }
       );
+
       if (response.ok) {
         const data = await response.json();
-        if (featuredShortTitle && data.title) featuredShortTitle.textContent = data.title;
-        if (featuredShortDescription) featuredShortDescription.textContent = "Featured YouTube Short";
-        if (featuredShortWatch) featuredShortWatch.href = `https://www.youtube.com/shorts/${fallbackId}`;
+
+        if (featuredShortTitle && data.title) {
+          featuredShortTitle.textContent = data.title;
+        }
+
+        if (featuredShortDescription) {
+          featuredShortDescription.textContent =
+            "Featured YouTube Short";
+        }
+
+        if (featuredShortWatch) {
+          featuredShortWatch.href =
+            `https://www.youtube.com/shorts/${fallbackId}`;
+        }
+
         return;
       }
     } catch (_) {}
 
-    if (featuredShortTitle) featuredShortTitle.textContent = "LATEST YOUTUBE SHORT";
-    if (featuredShortDescription) featuredShortDescription.textContent = "Open the Shorts feed to see the latest Hitman HQ Short.";
-    if (featuredShortWatch) featuredShortWatch.href = "https://www.youtube.com/@HitmanHQGaming/shorts";
+    if (featuredShortTitle) {
+      featuredShortTitle.textContent = "LATEST YOUTUBE SHORT";
+    }
+
+    if (featuredShortDescription) {
+      featuredShortDescription.textContent =
+        "Open the Shorts feed to see the latest Hitman HQ Short.";
+    }
+
+    if (featuredShortWatch) {
+      featuredShortWatch.href =
+        "https://www.youtube.com/@HitmanHQGaming/shorts";
+    }
   }
 }
 
