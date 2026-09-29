@@ -1,1 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="HITMAN HEADQUARTERS — Gaming, streaming and community. PLAY. HUNT. CONQUER.">
+  <title>HITMAN HEADQUARTERS | Gaming • Streaming • Entertainment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="site-bg"></div>
 
+  <header class="navbar" id="top">
+    <a class="brand" href="#home" aria-label="Hitman Headquarters home">
+      <span class="brand-mark">HQ</span>
+      <span class="brand-text">HITMAN <b>HEADQUARTERS</b></span>
+    </a>
+
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">☰</button>
+
+    <nav class="nav-links">
+      <a href="#home">HOME</a>
+      <a href="#videos">VIDEOS</a>
+      <a href="#live">LIVE</a>
+      <a href="#about">ABOUT</a>
+      <a href="#community">DISCORD</a>
+      <a href="#socials">SOCIALS</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section" id="home">
+      <div class="hero-text">
+        <div class="live-badge" id="heroLiveBadge" hidden>
+          <span class="pulse"></span> LIVE NOW
+        </div>
+        <p class="eyebrow">HITMAN HQ</p>
+        <h1>HITMAN<br><span>HEADQUARTERS</span></h1>
+        <h2>PLAY. HUNT. CONQUER.</h2>
+        <p class="hero-sub">GAMING • STREAMING • ENTERTAINMENT</p>
+        <p class="hero-copy">Welcome to the headquarters. Discover gaming videos, livestreams, shorts and the community behind Hitman HQ.</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://www.youtube.com/@HitmanHQGaming" target="_blank" rel="noopener">▶ WATCH ON YOUTUBE</a>
+          <a class="btn btn-secondary" href="https://discord.gg/qrMF6PwV6E" target="_blank" rel="noopener">💬 JOIN DISCORD</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true">
+        <div class="scanline"></div>
+        <div class="hq-ring ring-one"></div>
+        <div class="hq-ring ring-two"></div>
+        <div class="hq-core">HQ</div>
+        <div class="hud hud-one">GAMING // HQ</div>
+        <div class="hud hud-two">SYSTEM ONLINE</div>
+      </div>
+    </section>
+
+    <section class="section" id="videos">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">LATEST CONTENT</p>
+          <h2>FROM THE HEADQUARTERS</h2>
+        </div>
+        <a class="text-link" href="https://www.youtube.com/@HitmanHQGaming" target="_blank" rel="noopener">VIEW CHANNEL →</a>
+      </div>
+
+      <div class="content-layout">
+        <article class="featured-card" id="featuredCard">
+          <div class="featured-thumb" id="featuredThumb">
+            <div class="thumb-placeholder">LOADING HQ CONTENT…</div>
+          </div>
+          <div class="featured-body">
+            <span class="platform-badge" id="featuredBadge">YOUTUBE</span>
+            <h3 id="featuredTitle">Loading latest content…</h3>
+            <p id="featuredDate"></p>
+            <a class="btn btn-primary small" id="featuredWatch" href="https://www.youtube.com/@HitmanHQGaming" target="_blank" rel="noopener">WATCH →</a>
+          </div>
+        </article>
+
+        <div class="content-grid" id="contentGrid">
+          <div class="loading-card">Loading content…</div>
+          <div class="loading-card">Loading content…</div>
+          <div class="loading-card">Loading content…</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section live-section" id="live">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">STREAMING</p>
+          <h2>LIVE FROM HQ</h2>
+        </div>
+        <span class="status-pill" id="liveStatus">CHECKING STATUS</span>
+      </div>
+
+      <div class="live-panel">
+        <div class="live-icon">●</div>
+        <div>
+          <h3 id="liveTitle">Looking for a live stream…</h3>
+          <p id="liveMessage">The site checks your latest YouTube content and updates the live state when a livestream is detected.</p>
+        </div>
+        <a class="btn btn-primary" id="liveButton" href="https://www.youtube.com/@HitmanHQGaming/live" target="_blank" rel="noopener">WATCH LIVE</a>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">ABOUT HQ</p>
+          <h2>BUILT FOR GAMERS</h2>
+        </div>
+      </div>
+
+      <div class="about-grid">
+        <article class="info-card">
+          <span class="card-number">01</span>
+          <h3>THE CHANNEL</h3>
+          <p>Hitman HQ is a gaming-focused creator brand built around gameplay, livestreams, shorts, discoveries and entertainment.</p>
+        </article>
+        <article class="info-card">
+          <span class="card-number">02</span>
+          <h3>THE CONTENT</h3>
+          <p>Expect gaming videos, live sessions, Shorts and memorable moments across different games and challenges.</p>
+        </article>
+        <article class="info-card">
+          <span class="card-number">03</span>
+          <h3>THE COMMUNITY</h3>
+          <p>Connect with other gamers, join the Discord community and be part of the growing MP Gaming Network.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="games">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">GAMES</p>
+          <h2>CURRENTLY IN THE HQ</h2>
+        </div>
+      </div>
+
+      <div class="games-grid">
+        <article class="game-card">
+          <div class="game-art re">RE</div>
+          <div><h3>RESIDENT EVIL</h3><p>Horror • Survival</p></div>
+        </article>
+        <article class="game-card">
+          <div class="game-art gow">GOW</div>
+          <div><h3>GOD OF WAR</h3><p>Action • Adventure</p></div>
+        </article>
+        <article class="game-card">
+          <div class="game-art fps">FPS</div>
+          <div><h3>MORE GAMES</h3><p>Action • Multiplayer</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section community" id="community">
+      <div class="community-panel">
+        <div class="community-main">
+          <p class="eyebrow">COMMUNITY</p>
+          <h2>MP GAMING NETWORK 🇮🇳</h2>
+          <h3>PLAY. HUNT. CONQUER.</h3>
+          <p>Founded by HITMAN HQ — a gaming network built for gamers across Madhya Pradesh and beyond.</p>
+          <a class="btn btn-primary" href="https://discord.gg/qrMF6PwV6E" target="_blank" rel="noopener">💬 JOIN DISCORD</a>
+        </div>
+
+        <div class="community-details">
+          <div>
+            <span>📍 CITIES</span>
+            <p>Bhopal • Indore • Jabalpur • Gwalior • Ujjain • Sagar • Rewa</p>
+          </div>
+          <div>
+            <span>🎮 COMMUNITY</span>
+            <p>Connect • Play • Compete • Grow</p>
+          </div>
+          <div>
+            <span>📜 RULES</span>
+            <p>Respect others • No harassment • No spam • No cheating • Use the right channels • Follow staff instructions</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="socials">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">CONNECT</p>
+          <h2>FIND HITMAN HQ</h2>
+        </div>
+      </div>
+
+      <div class="social-grid">
+        <a class="social-card" href="https://www.youtube.com/@HitmanHQGaming" target="_blank" rel="noopener">
+          <span class="social-icon">▶</span><div><b>YOUTUBE</b><small>@HitmanHQGaming</small></div><span>↗</span>
+        </a>
+        <a class="social-card" href="https://www.facebook.com/profile.php?id=61594370277408" target="_blank" rel="noopener">
+          <span class="social-icon">f</span><div><b>FACEBOOK</b><small>Hitman HQ</small></div><span>↗</span>
+        </a>
+        <a class="social-card" href="https://www.instagram.com/hitman_hq" target="_blank" rel="noopener">
+          <span class="social-icon">◎</span><div><b>INSTAGRAM</b><small>@hitman_hq</small></div><span>↗</span>
+        </a>
+        <a class="social-card" href="https://x.com/HitmanHQGaming" target="_blank" rel="noopener">
+          <span class="social-icon">𝕏</span><div><b>X / TWITTER</b><small>@HitmanHQGaming</small></div><span>↗</span>
+        </a>
+        <a class="social-card" href="https://kick.com/hitmanhq" target="_blank" rel="noopener">
+          <span class="social-icon">K</span><div><b>KICK</b><small>@hitmanhq</small></div><span>↗</span>
+        </a>
+        <a class="social-card" href="https://discord.gg/qrMF6PwV6E" target="_blank" rel="noopener">
+          <span class="social-icon">⌁</span><div><b>DISCORD</b><small>MP Gaming Network</small></div><span>↗</span>
+        </a>
+      </div>
+
+      <div class="personal-social">
+        <span>👤 PERSONAL</span>
+        <a href="https://www.instagram.com/shiv.a.09" target="_blank" rel="noopener">Instagram · @shiv.a.09 ↗</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-brand">HITMAN HEADQUARTERS</div>
+    <div>© 2026 HITMAN HQ • PLAY. HUNT. CONQUER.</div>
+    <div>Built for Gamers • All Rights Reserved.</div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
