@@ -262,3 +262,126 @@ a{color:inherit;text-decoration:none}
     height: 42px;
   }
 }
+
+/* ================================
+   HQ GAME ROOM — FINAL FIX
+   ================================ */
+
+.games-grid-four {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.game-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
+  background: linear-gradient(
+    145deg,
+    rgba(255,255,255,.045),
+    rgba(255,255,255,.012)
+  );
+  border: 1px solid var(--line);
+  transition: .3s;
+}
+
+.game-card:hover {
+  border-color: rgba(229,9,20,.45);
+  box-shadow:
+    0 12px 45px rgba(0,0,0,.35),
+    0 0 25px rgba(229,9,20,.07);
+  transform: translateY(-3px);
+}
+
+.game-card-image {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+  background: #09090a;
+}
+
+.game-card-image img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+
+.game-card:hover .game-card-image img {
+  transform: scale(1.05);
+}
+
+.game-card-body {
+  padding: 17px;
+  min-height: 100px;
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,.025),
+    rgba(0,0,0,.08)
+  );
+}
+
+.game-card-body h3 {
+  font: 700 14px var(--heading);
+  letter-spacing: 1px;
+  color: #fff;
+}
+
+.game-card-body p {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--muted);
+  margin-top: 6px;
+}
+
+/* Game Room responsive layout */
+
+@media (max-width: 1050px) {
+  .games-grid-four {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 520px) {
+  .games-grid-four {
+    grid-template-columns: 1fr;
+  }
+
+  .game-card-image {
+    height: 210px;
+  }
+}
+/* ================================
+   CONTACT — GMAIL ICON
+   Same clean style as social icons
+   ================================ */
+
+.contact-icon {
+  width: 42px !important;
+  height: 42px !important;
+  display: grid !important;
+  place-items: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.contact-icon img {
+  width: 32px !important;
+  height: 32px !important;
+  display: block !important;
+  object-fit: contain !important;
+  border-radius: 0 !important;
+  filter: drop-shadow(0 0 5px rgba(255,255,255,.08));
+  transition: transform .2s ease, filter .2s ease;
+}
+
+.contact-panel:hover .contact-icon img {
+  transform: scale(1.08);
+  filter: drop-shadow(0 0 9px rgba(229,9,20,.35));
+}
