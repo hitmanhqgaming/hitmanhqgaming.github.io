@@ -1,25 +1,27 @@
-# HITMAN HEADQUARTERS
+# HITMAN HEADQUARTERS — Full Website Package
 
-Official GitHub Pages site for **HitmanHQ Gaming**.
+This package contains the current HITMAN HEADQUARTERS website files, including:
 
-**PLAY. HUNT. CONQUER.**
+- Updated Game Room layout and editable game data
+- Gmail contact icon without the surrounding box
+- Existing Home branding/logo assets preserved
+- Social media icon assets
+- Font assets
+- Current index.html, styles.css, and script.js
 
-## Included
-- Responsive gaming/creator website
-- Actual Hitman HQ channel logo
-- YouTube latest-content panel using the public channel RSS feed
-- Live/offline status panel
-- Games section: Resident Evil, God of War, BGMI and Roblox
-- Discord community section
-- Official social links + separate personal creator profiles
-- Mobile navigation
-- Dark HQ / red gaming visual system
+## Editing the HQ Game Room
 
-## YouTube
-Channel: https://www.youtube.com/@HitmanHQGaming
+Edit the `HQ_GAMES` array in `script.js` to change game names, descriptions, order, or image paths.
 
-## Discord
-https://discord.gg/qrMF6PwV6E
+Game image paths are:
 
-## Make.com note
-The site does **not** call the incoming Make webhook by default. This is intentional so normal website visits do not consume Make credits. The Make integration can be connected later through a dedicated read-only endpoint.
+- `assets/games/resident-evil.jpg`
+- `assets/games/god-of-war.jpg`
+- `assets/games/bgmi.jpg`
+- `assets/games/roblox.jpg`
+
+Upload those image files into `assets/games/` in GitHub if they are not already present in your repository.
+
+## Important
+
+The existing Home logo assets from the previous final website package are preserved. Do not overwrite them unless you intentionally want to change the Home branding.
