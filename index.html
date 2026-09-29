@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#050505">
   <meta name="description" content="HITMAN HEADQUARTERS — Gaming, streaming and community. PLAY. HUNT. CONQUER.">
   <title>HITMAN HEADQUARTERS | Gaming • Streaming • Entertainment</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +16,7 @@
 
   <header class="navbar" id="top">
     <a class="brand" href="#home" aria-label="Hitman Headquarters home">
-      <span class="brand-mark">HQ</span>
+      <span class="brand-mark"><img src="hitman-logo.png" alt="Hitman HQ logo"></span>
       <span class="brand-text">HITMAN <b>HEADQUARTERS</b></span>
     </a>
 
@@ -28,6 +29,8 @@
       <a href="#about">ABOUT</a>
       <a href="#community">DISCORD</a>
       <a href="#socials">SOCIALS</a>
+      <a href="#support">SUPPORT</a>
+      <a href="#contact">CONTACT</a>
     </nav>
   </header>
 
@@ -52,9 +55,10 @@
         <div class="scanline"></div>
         <div class="hq-ring ring-one"></div>
         <div class="hq-ring ring-two"></div>
-        <div class="hq-core">HQ</div>
+        <img class="hero-logo" src="hero-logo.png" alt="Hitman HQ channel logo">
         <div class="hud hud-one">GAMING // HQ</div>
         <div class="hud hud-two">SYSTEM ONLINE</div>
+        <button class="hq-secret-target" id="hqSecretTarget" aria-label="Classified HQ marker"><span></span></button>
       </div>
     </section>
 
@@ -107,6 +111,25 @@
       </div>
     </section>
 
+    <section class="section featured-clip-section" id="featured-clip">
+      <div class="section-heading">
+        <div><p class="eyebrow">HQ HIGHLIGHT</p><h2>FEATURED CLIP</h2></div>
+        <span class="section-note">ONE MOMENT. ONE TARGET.</span>
+      </div>
+      <article class="clip-feature">
+        <div class="clip-media">
+          <img id="featuredShortThumb" src="https://i.ytimg.com/vi/SsQA8Lw4Ztk/maxresdefault.jpg" alt="Latest Hitman HQ YouTube Short" loading="lazy">
+          <span class="clip-badge">🔥 FEATURED CLIP</span>
+        </div>
+        <div class="clip-copy">
+          <span class="platform-badge">YOUTUBE SHORT</span>
+          <h3 id="featuredShortTitle">Loading latest Short…</h3>
+          <p id="featuredShortDescription">The latest Hitman HQ YouTube Short will appear here automatically.</p>
+          <a class="btn btn-primary" id="featuredShortWatch" href="https://www.youtube.com/@HitmanHQGaming/shorts" target="_blank" rel="noopener">WATCH SHORT →</a>
+        </div>
+      </article>
+    </section>
+
     <section class="section" id="about">
       <div class="section-heading">
         <div>
@@ -129,7 +152,7 @@
         <article class="info-card">
           <span class="card-number">03</span>
           <h3>THE COMMUNITY</h3>
-          <p>Connect with other gamers, join the Discord community and be part of the growing MP Gaming Network.</p>
+          <p>Connect with players, creators and competitive gamers in the HITMAN HEADQUARTERS community.</p>
         </article>
       </div>
     </section>
@@ -138,48 +161,47 @@
       <div class="section-heading">
         <div>
           <p class="eyebrow">GAMES</p>
-          <h2>CURRENTLY IN THE HQ</h2>
+          <h2>THE HQ GAME ROOM</h2>
         </div>
+        <span class="section-note">SELECTED HQ TITLES</span>
       </div>
 
-      <div class="games-grid">
-        <article class="game-card">
-          <div class="game-art re">RE</div>
-          <div><h3>RESIDENT EVIL</h3><p>Horror • Survival</p></div>
-        </article>
-        <article class="game-card">
-          <div class="game-art gow">GOW</div>
-          <div><h3>GOD OF WAR</h3><p>Action • Adventure</p></div>
-        </article>
-        <article class="game-card">
-          <div class="game-art fps">FPS</div>
-          <div><h3>MORE GAMES</h3><p>Action • Multiplayer</p></div>
-        </article>
-      </div>
+      <!-- EDIT FUTURE GAMES IN script.js → HQ_GAMES -->
+      <div class="games-grid games-grid-four" id="gameGrid"></div>
     </section>
 
     <section class="section community" id="community">
       <div class="community-panel">
         <div class="community-main">
-          <p class="eyebrow">COMMUNITY</p>
-          <h2>MP GAMING NETWORK 🇮🇳</h2>
-          <h3>PLAY. HUNT. CONQUER.</h3>
-          <p>Founded by HITMAN HQ — a gaming network built for gamers across Madhya Pradesh and beyond.</p>
-          <a class="btn btn-primary" href="https://discord.gg/qrMF6PwV6E" target="_blank" rel="noopener">💬 JOIN DISCORD</a>
+          <div class="discord-orb" aria-hidden="true">
+            <svg viewBox="0 0 24 24" role="img"><path d="M19.54 5.21A16.26 16.26 0 0 0 15.5 4l-.5 1.03a14.55 14.55 0 0 0-6 0L8.5 4a16.27 16.27 0 0 0-4.04 1.21C1.9 9.07 1.2 12.84 1.55 16.55A16.4 16.4 0 0 0 6.5 19l1.2-1.65c-.66-.25-1.3-.57-1.9-.95l.46-.35c3.67 1.72 7.65 1.72 11.28 0l.47.35c-.6.38-1.24.7-1.9.95l1.2 1.65a16.4 16.4 0 0 0 4.95-2.45c.41-4.3-.7-8.03-2.72-11.34ZM8.2 14.52c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Zm7.6 0c-1.1 0-2-.99-2-2.2s.88-2.2 2-2.2 2 .99 2 2.2-.9 2.2-2 2.2Z"/></svg>
+          </div>
+          <div>
+            <p class="eyebrow">DISCORD COMMUNITY</p>
+            <h2>ENTER THE<br><span>HEADQUARTERS</span></h2>
+            <p class="community-lead">Your place to <b>play, connect, compete and grow.</b> Join the official HITMAN HEADQUARTERS community.</p>
+            <div class="community-tags">
+              <span>🎮 GAMING</span><span>🏆 EVENTS</span><span>🔴 LIVE</span><span>🤝 COMMUNITY</span>
+            </div>
+            <a class="btn btn-discord" href="https://discord.gg/qrMF6PwV6E" target="_blank" rel="noopener"><span>💬</span> JOIN THE DISCORD <b>↗</b></a>
+          </div>
         </div>
 
         <div class="community-details">
-          <div>
-            <span>📍 CITIES</span>
-            <p>Bhopal • Indore • Jabalpur • Gwalior • Ujjain • Sagar • Rewa</p>
+          <div class="discord-card-main">
+            <div class="discord-card-top"><span class="discord-live-dot"></span><span>HITMAN HEADQUARTERS</span><b>ONLINE COMMUNITY</b></div>
+            <h3>PLAY. HUNT. CONQUER.</h3>
+            <p>Find teammates, share clips, join events and stay connected with the HQ gaming community.</p>
+            <div class="community-mini-grid">
+              <div><strong>🎯</strong><span>FIND<br>TEAMMATES</span></div>
+              <div><strong>🎬</strong><span>SHARE<br>CLIPS</span></div>
+              <div><strong>🏆</strong><span>JOIN<br>EVENTS</span></div>
+              <div><strong>🔥</strong><span>MEET<br>GAMERS</span></div>
+            </div>
           </div>
-          <div>
-            <span>🎮 COMMUNITY</span>
-            <p>Connect • Play • Compete • Grow</p>
-          </div>
-          <div>
-            <span>📜 RULES</span>
-            <p>Respect others • No harassment • No spam • No cheating • Use the right channels • Follow staff instructions</p>
+          <div class="discord-quote">
+            <span>HQ MISSION</span>
+            <p>“Build a community where gamers can connect, play and create together.”</p>
           </div>
         </div>
       </div>
@@ -195,38 +217,92 @@
 
       <div class="social-grid">
         <a class="social-card" href="https://www.youtube.com/@HitmanHQGaming" target="_blank" rel="noopener">
-          <span class="social-icon">▶</span><div><b>YOUTUBE</b><small>@HitmanHQGaming</small></div><span>↗</span>
+          <span class="social-icon"><img src="assets/social/youtube.png" alt="YouTube" loading="lazy"></span><div><b>YOUTUBE</b><small>@HitmanHQGaming</small></div><span>↗</span>
         </a>
         <a class="social-card" href="https://www.facebook.com/profile.php?id=61594370277408" target="_blank" rel="noopener">
-          <span class="social-icon">f</span><div><b>FACEBOOK</b><small>Hitman HQ</small></div><span>↗</span>
+          <span class="social-icon"><img src="assets/social/facebook.png" alt="Facebook" loading="lazy"></span><div><b>FACEBOOK</b><small>Hitman HQ</small></div><span>↗</span>
         </a>
         <a class="social-card" href="https://www.instagram.com/hitman_hq" target="_blank" rel="noopener">
-          <span class="social-icon">◎</span><div><b>INSTAGRAM</b><small>@hitman_hq</small></div><span>↗</span>
+          <span class="social-icon"><img src="assets/social/instagram.png" alt="Instagram" loading="lazy"></span><div><b>INSTAGRAM</b><small>@hitman_hq</small></div><span>↗</span>
         </a>
         <a class="social-card" href="https://x.com/HitmanHQGaming" target="_blank" rel="noopener">
-          <span class="social-icon">𝕏</span><div><b>X / TWITTER</b><small>@HitmanHQGaming</small></div><span>↗</span>
+          <span class="social-icon"><img src="assets/social/x.png" alt="X" loading="lazy"></span><div><b>X / TWITTER</b><small>@HitmanHQGaming</small></div><span>↗</span>
         </a>
         <a class="social-card" href="https://kick.com/hitmanhq" target="_blank" rel="noopener">
-          <span class="social-icon">K</span><div><b>KICK</b><small>@hitmanhq</small></div><span>↗</span>
+          <span class="social-icon"><img src="assets/social/kick.png" alt="Kick" loading="lazy"></span><div><b>KICK</b><small>@hitmanhq</small></div><span>↗</span>
         </a>
         <a class="social-card" href="https://discord.gg/qrMF6PwV6E" target="_blank" rel="noopener">
-          <span class="social-icon">⌁</span><div><b>DISCORD</b><small>MP Gaming Network</small></div><span>↗</span>
+          <span class="social-icon"><img src="assets/social/discord.png" alt="Discord" loading="lazy"></span><div><b>DISCORD</b><small>HITMAN HEADQUARTERS</small></div><span>↗</span>
         </a>
       </div>
 
       <div class="personal-social">
-        <span>👤 PERSONAL</span>
-        <a href="https://www.instagram.com/shiv.a.09" target="_blank" rel="noopener">Instagram · @shiv.a.09 ↗</a>
+        <div class="personal-heading">
+          <span>👤 PERSONAL</span>
+          <small>Creator profiles</small>
+        </div>
+        <div class="personal-links">
+          <a class="personal-card" href="https://www.instagram.com/shiv.a.09" target="_blank" rel="noopener">
+            <span class="personal-icon personal-instagram"><img src="assets/social/instagram.png" alt="Instagram" loading="lazy"></span><strong>INSTAGRAM</strong><small>@shiv.a.09</small><b>↗</b>
+          </a>
+          <a class="personal-card" href="https://www.facebook.com/profile.php?id=61593594506074" target="_blank" rel="noopener">
+            <span class="personal-icon personal-facebook"><img src="assets/social/facebook.png" alt="Facebook" loading="lazy"></span><strong>FACEBOOK</strong><small>Shivendra</small><b>↗</b>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section support-section" id="support">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">SUPPORT THE HQ</p>
+          <h2>SUPPORT HITMAN HQ</h2>
+        </div>
+        <span class="section-note">OPTIONAL • THANK YOU</span>
+      </div>
+      <div class="support-panel">
+        <div class="support-copy">
+          <div class="support-heart">♥</div>
+          <div>
+            <h3>KEEP THE HQ GROWING</h3>
+            <p>Enjoying the content? Your support helps HITMAN HEADQUARTERS create more gaming content and improve the channel. 🎮🔥</p>
+          </div>
+        </div>
+        <div class="support-methods">
+          <div class="support-method primary">
+            <span class="support-label">🇮🇳 PRIMARY SUPPORT</span>
+            <strong>UPI</strong>
+            <code>hitmanhq@ptyes</code>
+            <button class="support-copy-btn" type="button" data-copy="hitmanhq@ptyes">COPY UPI ID</button>
+          </div>
+          <div class="support-method secondary">
+            <span class="support-label">ALTERNATIVE UPI OPTION</span>
+            <strong>StreamTipz</strong>
+            <a class="support-link" href="https://app.streamtipz.in/tip/hitman-hq" target="_blank" rel="noopener">SUPPORT VIA STREAMTIPZ ↗</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section class="section contact-section" id="contact">
+      <div class="contact-panel">
+        <div class="contact-icon">✉</div>
+        <div class="contact-copy">
+          <p class="eyebrow">GET IN TOUCH</p>
+          <h2>CONTACT <span>ME</span></h2>
+          <p>Have a collaboration idea, business inquiry, or gaming project? Send a message directly to HITMAN HQ.</p>
+        </div>
+        <a class="btn btn-primary contact-button" href="mailto:shivauikey2015@gmail.com?subject=HITMAN%20HEADQUARTERS%20Inquiry">SEND EMAIL →</a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="footer-brand">HITMAN HEADQUARTERS</div>
+    <div class="footer-brand"><img src="hitman-logo.png" alt="Hitman HQ logo"><span>HITMAN HEADQUARTERS</span></div>
     <div>© 2026 HITMAN HQ • PLAY. HUNT. CONQUER.</div>
-    <div>Built for Gamers • All Rights Reserved.</div>
+    <div><a class="footer-support" href="#support">Support the HQ</a> • Built for Gamers • All Rights Reserved.</div>
   </footer>
 
+  <noscript><div class="noscript">JavaScript is required for the live content panel. You can still use the navigation and social links.</div></noscript>
   <script src="script.js"></script>
 </body>
 </html>
