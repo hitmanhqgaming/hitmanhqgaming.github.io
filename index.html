@@ -1,12 +1,11 @@
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <meta
-    name="theme-color"
-    content="#050505">
+  <meta name="theme-color" content="#050505">
 
   <meta
     name="description"
@@ -547,7 +546,7 @@
 
 
     <!-- =====================================================
-         GAMES
+         GAME DATABASE
          SCRIPT.JS CONTROLS ALL GAME DATA
     ====================================================== -->
 
@@ -560,63 +559,51 @@
         <div>
 
           <p class="eyebrow">
-            GAMES
+            GAME DATABASE
           </p>
 
           <h2>
-            THE HQ GAME ROOM
+            ACTIVE GAME MATRIX
           </h2>
 
         </div>
 
 
         <span class="section-note">
-          CURRENT • NEXT • PLAYED
+          CURRENT // QUEUED // ARCHIVED
         </span>
 
       </div>
 
 
-      <!--
-        IMPORTANT
-
-        DO NOT ADD GAME CARDS HERE.
-
-        script.js automatically fills:
-
-        #currentlyPlayingCard
-        #upNextCard
-        #playedGamesGrid
-
-        Future game changes only need to be made
-        inside HQ_GAMES in script.js.
-      -->
-
+      <!-- =================================================
+           ACTIVE OPERATIONS
+      ================================================== -->
 
       <div class="game-feature-grid">
 
 
-        <!-- CURRENTLY PLAYING -->
+        <!-- CURRENT OPERATION -->
 
         <article
           class="game-feature-card current"
           id="currentlyPlayingCard">
 
           <div class="games-loading">
-            LOADING CURRENT GAME…
+            LOADING CURRENT OPERATION…
           </div>
 
         </article>
 
 
-        <!-- UP NEXT -->
+        <!-- NEXT OPERATION -->
 
         <article
           class="game-feature-card next"
           id="upNextCard">
 
           <div class="games-loading">
-            LOADING NEXT GAME…
+            LOADING NEXT OPERATION…
           </div>
 
         </article>
@@ -624,39 +611,63 @@
       </div>
 
 
-      <!-- PLAYED ON STREAM -->
+      <!-- =================================================
+           ARCHIVED OPERATIONS
+      ================================================== -->
 
-      <div class="games-library-header">
+      <details class="games-archive">
 
-        <div>
 
-          <p class="eyebrow">
-            ARCHIVE
-          </p>
+        <summary class="games-archive-toggle">
 
-          <h3>
-            PLAYED ON STREAM
-          </h3>
+          <div class="games-archive-title">
+
+            <span class="archive-index">
+              03
+            </span>
+
+
+            <div>
+
+              <span class="eyebrow">
+                ARCHIVED OPERATIONS
+              </span>
+
+              <h3>
+                PLAYED ON STREAM
+              </h3>
+
+            </div>
+
+          </div>
+
+
+          <div class="archive-meta">
+
+            <span>
+              GAME LIBRARY
+            </span>
+
+            <span class="archive-arrow">
+              +
+            </span>
+
+          </div>
+
+        </summary>
+
+
+        <div
+          class="games-compact-grid"
+          id="playedGamesGrid">
+
+          <div class="games-loading">
+            LOADING GAME ARCHIVE…
+          </div>
 
         </div>
 
-
-        <span class="section-note">
-          HQ GAME LIBRARY
-        </span>
-
-      </div>
-
-
-      <div
-        class="games-compact-grid"
-        id="playedGamesGrid">
-
-        <div class="games-loading">
-          LOADING GAME LIBRARY…
-        </div>
-
-      </div>
+      </details>
 
     </section>
 
@@ -771,30 +782,37 @@
 
               <div>
                 <strong>🎯</strong>
+
                 <span>
                   FIND<br>
                   TEAMMATES
                 </span>
               </div>
 
+
               <div>
                 <strong>🎬</strong>
+
                 <span>
                   SHARE<br>
                   CLIPS
                 </span>
               </div>
 
+
               <div>
                 <strong>🏆</strong>
+
                 <span>
                   JOIN<br>
                   EVENTS
                 </span>
               </div>
 
+
               <div>
                 <strong>🔥</strong>
+
                 <span>
                   MEET<br>
                   GAMERS
@@ -827,8 +845,7 @@
 
 
     <!-- =====================================================
-         SOCIALS
-         SIMPLE VERSION
+         COMMUNICATION GRID
     ====================================================== -->
 
     <section
@@ -840,59 +857,104 @@
         <div>
 
           <p class="eyebrow">
-            CONNECT
+            COMMUNICATION GRID
           </p>
 
           <h2>
-            FIND ME ONLINE
+            SOCIAL UPLINKS
           </h2>
 
         </div>
+
+
+        <span class="section-note">
+          ACTIVE // CONNECTED
+        </span>
 
       </div>
 
 
       <!-- =================================================
-           STREAMING
+           LIVE TRANSMISSION
       ================================================== -->
 
-      <div class="simple-streaming">
+      <div class="social-command-panel">
 
-        <div class="simple-streaming-title">
-          I STREAM ON
+
+        <div class="social-command-header">
+
+          <div>
+
+            <span class="social-command-index">
+              01
+            </span>
+
+
+            <div>
+
+              <strong>
+                LIVE TRANSMISSION
+              </strong>
+
+              <small>
+                ACTIVE STREAM UPLINKS
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <span class="social-signal">
+            ● SIGNAL ACTIVE
+          </span>
+
         </div>
 
 
-        <div class="simple-streaming-grid">
+        <div class="live-uplink-grid">
 
 
           <!-- TWITCH -->
 
           <a
-            class="simple-stream-card twitch-stream"
+            class="social-uplink twitch-uplink"
             href="https://www.twitch.tv/HitmanGaming09"
             target="_blank"
             rel="noopener noreferrer">
 
-            <span class="simple-stream-icon twitch-icon">
-              <i aria-hidden="true"></i>
-            </span>
+            <div class="social-logo-box">
 
-            <span class="simple-stream-info">
+              <img
+                src="assets/social/twitch.png"
+                alt="Twitch"
+                loading="lazy">
+
+              <span class="logo-scan"></span>
+
+            </div>
+
+
+            <div class="social-uplink-info">
+
+              <span>
+                TWITCH
+              </span>
 
               <strong>
-                TWITCH
+                @HitmanGaming09
               </strong>
 
               <small>
-                @HitmanGaming09
+                MAIN UPLINK
               </small>
 
-            </span>
+            </div>
 
-            <span class="simple-stream-arrow">
-              ↗
-            </span>
+
+            <div class="social-connect">
+              CONNECT ↗
+            </div>
 
           </a>
 
@@ -900,30 +962,43 @@
           <!-- KICK -->
 
           <a
-            class="simple-stream-card kick-stream"
+            class="social-uplink kick-uplink"
             href="https://kick.com/hitmanhq"
             target="_blank"
             rel="noopener noreferrer">
 
-            <span class="simple-stream-icon kick-icon">
-              <span>K</span>
-            </span>
+            <div class="social-logo-box">
 
-            <span class="simple-stream-info">
+              <img
+                src="assets/social/kick.png"
+                alt="Kick"
+                loading="lazy">
+
+              <span class="logo-scan"></span>
+
+            </div>
+
+
+            <div class="social-uplink-info">
+
+              <span>
+                KICK
+              </span>
 
               <strong>
-                KICK
+                @hitmanhq
               </strong>
 
               <small>
-                @hitmanhq
+                MAIN UPLINK
               </small>
 
-            </span>
+            </div>
 
-            <span class="simple-stream-arrow">
-              ↗
-            </span>
+
+            <div class="social-connect">
+              CONNECT ↗
+            </div>
 
           </a>
 
@@ -933,175 +1008,70 @@
 
 
       <!-- =================================================
-           SOCIAL LINKS
+           EXTERNAL UPLINKS
       ================================================== -->
 
-      <div class="simple-socials">
+      <div class="social-command-panel external-panel">
 
 
-        <!-- YOUTUBE -->
+        <div class="social-command-header">
 
-        <a
-          class="simple-social-card youtube-social"
-          href="https://www.youtube.com/@HitmanHQGaming"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="YouTube">
+          <div>
 
-          <span class="simple-social-icon youtube-icon">
-            <i aria-hidden="true"></i>
+            <span class="social-command-index">
+              02
+            </span>
+
+
+            <div>
+
+              <strong>
+                EXTERNAL UPLINKS
+              </strong>
+
+              <small>
+                CONNECTED CHANNELS
+              </small>
+
+            </div>
+
+          </div>
+
+
+          <span class="social-signal">
+            ● LINK STABLE
           </span>
-
-          <span class="simple-social-name">
-            YouTube
-          </span>
-
-          <span class="simple-social-arrow">
-            ↗
-          </span>
-
-        </a>
-
-
-        <!-- INSTAGRAM -->
-
-        <a
-          class="simple-social-card instagram-social"
-          href="https://www.instagram.com/hitman_hq"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Instagram">
-
-          <span class="simple-social-icon instagram-icon">
-            <i aria-hidden="true"></i>
-          </span>
-
-          <span class="simple-social-name">
-            Instagram
-          </span>
-
-          <span class="simple-social-arrow">
-            ↗
-          </span>
-
-        </a>
-
-
-        <!-- X -->
-
-        <a
-          class="simple-social-card x-social"
-          href="https://x.com/HitmanHQGaming"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="X">
-
-          <span class="simple-social-icon x-icon">
-            <i aria-hidden="true"></i>
-          </span>
-
-          <span class="simple-social-name">
-            X
-          </span>
-
-          <span class="simple-social-arrow">
-            ↗
-          </span>
-
-        </a>
-
-
-        <!-- FACEBOOK -->
-
-        <a
-          class="simple-social-card facebook-social"
-          href="https://www.facebook.com/profile.php?id=61594370277408"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Facebook">
-
-          <span class="simple-social-icon facebook-icon">
-            <i aria-hidden="true"></i>
-          </span>
-
-          <span class="simple-social-name">
-            Facebook
-          </span>
-
-          <span class="simple-social-arrow">
-            ↗
-          </span>
-
-        </a>
-
-
-        <!-- DISCORD -->
-
-        <a
-          class="simple-social-card discord-social"
-          href="https://discord.gg/qrMF6PwV6E"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Discord">
-
-          <span class="simple-social-icon discord-icon">
-            <i aria-hidden="true"></i>
-          </span>
-
-          <span class="simple-social-name">
-            Discord
-          </span>
-
-          <span class="simple-social-arrow">
-            ↗
-          </span>
-
-        </a>
-
-      </div>
-
-
-      <!-- =================================================
-           PERSONAL PROFILES
-      ================================================== -->
-
-      <div class="personal-social">
-
-        <div class="personal-heading">
-
-          <span>
-            👤 PERSONAL
-          </span>
-
-          <small>
-            Creator profiles
-          </small>
 
         </div>
 
 
-        <div class="personal-links">
+        <div class="social-logo-grid">
 
+
+          <!-- YOUTUBE -->
 
           <a
-            class="personal-card"
-            href="https://www.instagram.com/shiv.a.09"
+            class="social-tile youtube-tile"
+            href="https://www.youtube.com/@HitmanHQGaming"
             target="_blank"
-            rel="noopener noreferrer">
+            rel="noopener noreferrer"
+            aria-label="YouTube">
 
-            <span class="personal-icon personal-instagram">
+            <div class="social-tile-logo">
+
               <img
-                src="assets/social/instagram.png"
-                alt="Instagram"
+                src="assets/social/youtube.png"
+                alt="YouTube"
                 loading="lazy">
+
+            </div>
+
+            <span>
+              YOUTUBE
             </span>
 
-            <strong>
-              INSTAGRAM
-            </strong>
-
             <small>
-              @shiv.a.09
+              VIDEO DATA
             </small>
 
             <b>
@@ -1111,25 +1081,129 @@
           </a>
 
 
-          <a
-            class="personal-card"
-            href="https://www.facebook.com/profile.php?id=61593594506074"
-            target="_blank"
-            rel="noopener noreferrer">
+          <!-- INSTAGRAM -->
 
-            <span class="personal-icon personal-facebook">
+          <a
+            class="social-tile instagram-tile"
+            href="https://www.instagram.com/hitman_hq"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram">
+
+            <div class="social-tile-logo">
+
+              <img
+                src="assets/social/instagram.png"
+                alt="Instagram"
+                loading="lazy">
+
+            </div>
+
+            <span>
+              INSTAGRAM
+            </span>
+
+            <small>
+              VISUAL FEED
+            </small>
+
+            <b>
+              ↗
+            </b>
+
+          </a>
+
+
+          <!-- X -->
+
+          <a
+            class="social-tile x-tile"
+            href="https://x.com/HitmanHQGaming"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="X">
+
+            <div class="social-tile-logo">
+
+              <img
+                src="assets/social/x.png"
+                alt="X"
+                loading="lazy">
+
+            </div>
+
+            <span>
+              X
+            </span>
+
+            <small>
+              INTEL FEED
+            </small>
+
+            <b>
+              ↗
+            </b>
+
+          </a>
+
+
+          <!-- FACEBOOK -->
+
+          <a
+            class="social-tile facebook-tile"
+            href="https://www.facebook.com/profile.php?id=61594370277408"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook">
+
+            <div class="social-tile-logo">
+
               <img
                 src="assets/social/facebook.png"
                 alt="Facebook"
                 loading="lazy">
+
+            </div>
+
+            <span>
+              FACEBOOK
             </span>
 
-            <strong>
-              FACEBOOK
-            </strong>
+            <small>
+              COMMUNITY INTEL
+            </small>
+
+            <b>
+              ↗
+            </b>
+
+          </a>
+
+
+          <!-- DISCORD -->
+
+          <a
+            class="social-tile discord-tile"
+            href="https://discord.gg/qrMF6PwV6E"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Discord">
+
+            <div class="social-tile-logo">
+
+              <img
+                src="assets/social/discord.png"
+                alt="Discord"
+                loading="lazy">
+
+            </div>
+
+            <span>
+              DISCORD
+            </span>
 
             <small>
-              Shivendra
+              COMMUNITY LINK
             </small>
 
             <b>
@@ -1373,3 +1447,4 @@
 
 </body>
 </html>
+```
