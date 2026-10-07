@@ -839,6 +839,9 @@ img{
     transform .3s ease,
     border-color .3s ease,
     box-shadow .3s ease;
+
+  /* important: generated game content must remain visible */
+  display:block;
 }
 
 .game-feature-card:hover{
@@ -852,9 +855,11 @@ img{
 .game-feature-art{
   position:absolute;
   inset:0;
-  z-index:-2;
+  z-index:0;
+  background-color:#111114;
   background-size:cover;
   background-position:center;
+  background-repeat:no-repeat;
   transform:scale(1.01);
   transition:transform .6s ease;
 }
@@ -874,6 +879,7 @@ img{
       rgba(0,0,0,.25) 42%,
       rgba(0,0,0,.94) 100%
     );
+  pointer-events:none;
 }
 
 .game-feature-card.current .game-feature-art:after{
@@ -929,6 +935,9 @@ img{
 .game-feature-status .status-dot{
   width:6px;
   height:6px;
+  border-radius:50%;
+  background:currentColor;
+  box-shadow:0 0 10px currentColor;
 }
 
 .game-feature-content h3{
@@ -1137,6 +1146,7 @@ img{
   overflow:hidden;
   border:1px solid rgba(255,255,255,.08);
   background:#0b0b0d;
+  isolation:isolate;
   transition:
     transform .25s ease,
     border-color .25s ease,
@@ -1154,9 +1164,11 @@ img{
 .game-compact-art{
   position:absolute;
   inset:0;
+  z-index:-1;
+  background-color:#111114;
   background-size:cover;
   background-position:center;
-  z-index:0;
+  background-repeat:no-repeat;
   transition:transform .45s ease;
 }
 
@@ -1565,50 +1577,22 @@ img{
 
 
 /* =========================================================
-   SOCIAL COMMAND CENTER
+   PREMIUM SOCIAL UPLINKS
+   CLEAN PROFILE STYLE
 ========================================================= */
 
 .social-command-panel{
   position:relative;
-  margin-top:26px;
-  padding:22px;
-  border:1px solid rgba(255,255,255,.10);
-  background:
-    linear-gradient(
-      135deg,
-      rgba(14,14,18,.97),
-      rgba(6,6,8,.97)
-    );
-  overflow:hidden;
+  margin-top:20px;
+  padding:0;
+  border:0;
+  background:transparent;
+  overflow:visible;
 }
 
-.social-command-panel:before{
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  right:0;
-  height:1px;
-  background:
-    linear-gradient(
-      90deg,
-      transparent,
-      rgba(229,9,20,.85),
-      transparent
-    );
-}
-
+.social-command-panel:before,
 .social-command-panel:after{
-  content:"NET://UPLINKS";
-  position:absolute;
-  right:20px;
-  bottom:14px;
-  color:rgba(255,255,255,.08);
-  font:
-    700 8px
-    var(--heading);
-  letter-spacing:2px;
-  pointer-events:none;
+  display:none;
 }
 
 .social-command-header{
@@ -1616,25 +1600,25 @@ img{
   justify-content:space-between;
   align-items:center;
   gap:20px;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 .social-command-header>div{
   display:flex;
   align-items:center;
-  gap:14px;
+  gap:12px;
 }
 
 .social-command-index{
-  width:36px;
-  height:36px;
+  width:32px;
+  height:32px;
   display:grid;
   place-items:center;
-  border:1px solid rgba(229,9,20,.5);
+  border:1px solid rgba(229,9,20,.45);
   color:var(--red);
   background:rgba(229,9,20,.035);
   font:
-    700 11px
+    700 9px
     var(--heading);
 }
 
@@ -1643,30 +1627,30 @@ img{
   font:
     800 13px
     var(--heading);
-  letter-spacing:.12em;
+  letter-spacing:.10em;
 }
 
 .social-command-header small{
   display:block;
-  margin-top:4px;
-  color:rgba(255,255,255,.42);
+  margin-top:3px;
+  color:rgba(255,255,255,.38);
   font:
-    700 8px
+    700 7px
     var(--heading);
-  letter-spacing:.12em;
+  letter-spacing:.10em;
 }
 
 .social-signal{
   color:#62ff70;
   font:
-    700 9px
+    700 8px
     var(--heading);
   letter-spacing:.1em;
 }
 
 
 /* =========================================================
-   LIVE UPLINKS
+   LIVE UPLINK GRID
 ========================================================= */
 
 .live-uplink-grid{
@@ -1677,22 +1661,40 @@ img{
 
 .social-uplink{
   position:relative;
-  min-height:120px;
+  min-height:105px;
   display:flex;
   align-items:center;
-  gap:18px;
-  padding:16px;
-  border:1px solid rgba(255,255,255,.10);
-  background:rgba(255,255,255,.025);
+  gap:16px;
+  padding:18px 20px;
+  border:1px solid rgba(255,255,255,.08);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.035),
+      rgba(255,255,255,.012)
+    );
   color:#fff;
   text-decoration:none;
   overflow:hidden;
   touch-action:manipulation;
+
   transition:
-    transform .25s ease,
-    border-color .25s ease,
-    box-shadow .25s ease,
-    background .25s ease;
+    transform .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease,
+    background .3s ease;
+}
+
+.social-uplink:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:2px;
+  background:var(--uplink-color);
+  opacity:.65;
+  transition:.3s ease;
 }
 
 .social-uplink:after{
@@ -1702,14 +1704,26 @@ img{
   right:100%;
   bottom:0;
   height:2px;
-  transition:.35s ease;
+  background:var(--uplink-color);
+  transition:.4s ease;
 }
 
 .social-uplink:hover,
 .social-uplink:focus-visible,
 .social-uplink.selected{
-  transform:translateY(-3px);
+  transform:translateY(-4px);
   outline:none;
+  border-color:var(--uplink-color);
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.35),
+    0 0 30px var(--uplink-shadow);
+}
+
+.social-uplink:hover:before,
+.social-uplink:focus-visible:before,
+.social-uplink.selected:before{
+  opacity:1;
+  box-shadow:0 0 15px var(--uplink-color);
 }
 
 .social-uplink:hover:after,
@@ -1720,116 +1734,143 @@ img{
 }
 
 
-/* TWITCH */
+/* =========================================================
+   TWITCH
+========================================================= */
 
 .twitch-uplink{
-  border-color:rgba(145,70,255,.25);
-}
-
-.twitch-uplink:after{
-  background:var(--twitch);
+  --uplink-color:var(--twitch);
+  --uplink-shadow:rgba(145,70,255,.25);
+  border-color:rgba(145,70,255,.20);
 }
 
 .twitch-uplink:hover,
 .twitch-uplink:focus-visible,
 .twitch-uplink.selected{
-  border-color:var(--twitch);
-  background:rgba(145,70,255,.06);
-  box-shadow:
-    0 0 30px rgba(145,70,255,.22),
-    inset 0 0 25px rgba(145,70,255,.025);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(145,70,255,.065),
+      rgba(255,255,255,.012)
+    );
 }
 
 
-/* KICK */
+/* =========================================================
+   KICK
+========================================================= */
 
 .kick-uplink{
-  border-color:rgba(83,252,24,.23);
-}
-
-.kick-uplink:after{
-  background:var(--kick);
+  --uplink-color:var(--kick);
+  --uplink-shadow:rgba(83,252,24,.22);
+  border-color:rgba(83,252,24,.18);
 }
 
 .kick-uplink:hover,
 .kick-uplink:focus-visible,
 .kick-uplink.selected{
-  border-color:var(--kick);
-  background:rgba(83,252,24,.05);
-  box-shadow:
-    0 0 30px rgba(83,252,24,.20),
-    inset 0 0 25px rgba(83,252,24,.02);
+  background:
+    linear-gradient(
+      135deg,
+      rgba(83,252,24,.055),
+      rgba(255,255,255,.012)
+    );
 }
 
 
 /* =========================================================
-   LIVE LOGO BOX
+   LIVE LOGOS
+   NO EXTRA SQUARE / NO BOX
 ========================================================= */
 
 .social-logo-box{
   position:relative;
-  flex:0 0 72px;
-  width:72px;
-  height:72px;
+  flex:0 0 64px;
+  width:64px;
+  height:64px;
+
   display:grid;
   place-items:center;
-  border:1px solid rgba(255,255,255,.13);
-  background:#08080a;
-  overflow:hidden;
-  transition:
-    border-color .25s ease,
-    box-shadow .25s ease;
-}
 
-.social-logo-box img{
-  width:46px;
-  height:46px;
-  object-fit:contain;
-  display:block;
+  /* remove the old logo box */
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+
+  overflow:visible;
+
   transition:
     transform .3s ease,
     filter .3s ease;
 }
 
+.social-logo-box img{
+  width:52px;
+  height:52px;
+  object-fit:contain;
+  display:block;
+
+  border-radius:0;
+
+  transition:
+    transform .3s ease,
+    filter .3s ease;
+}
+
+.social-uplink:hover .social-logo-box,
+.social-uplink:focus-visible .social-logo-box,
+.social-uplink.selected .social-logo-box{
+  transform:scale(1.04);
+}
+
 .social-uplink:hover .social-logo-box img,
 .social-uplink:focus-visible .social-logo-box img,
 .social-uplink.selected .social-logo-box img{
-  transform:scale(1.12);
+  transform:scale(1.10);
 }
 
-.twitch-uplink:hover .social-logo-box,
-.twitch-uplink:focus-visible .social-logo-box,
-.twitch-uplink.selected .social-logo-box{
-  border-color:var(--twitch);
-  box-shadow:
-    0 0 22px rgba(145,70,255,.38);
+.twitch-uplink:hover .social-logo-box img,
+.twitch-uplink:focus-visible .social-logo-box img,
+.twitch-uplink.selected .social-logo-box img{
+  filter:
+    drop-shadow(
+      0 0 12px rgba(145,70,255,.65)
+    );
 }
 
-.kick-uplink:hover .social-logo-box,
-.kick-uplink:focus-visible .social-logo-box,
-.kick-uplink.selected .social-logo-box{
-  border-color:var(--kick);
-  box-shadow:
-    0 0 22px rgba(83,252,24,.32);
+.kick-uplink:hover .social-logo-box img,
+.kick-uplink:focus-visible .social-logo-box img,
+.kick-uplink.selected .social-logo-box img{
+  filter:
+    drop-shadow(
+      0 0 12px rgba(83,252,24,.55)
+    );
 }
 
 
-/* LOGO SCAN */
+/* =========================================================
+   SCANNING EFFECT
+   KEEPING THE EFFECT YOU LIKED
+========================================================= */
 
 .logo-scan{
   position:absolute;
-  left:0;
-  right:0;
+  left:-12px;
+  right:-12px;
   top:-100%;
-  height:30%;
+  height:35%;
+
   background:
     linear-gradient(
       transparent,
-      rgba(255,255,255,.20),
+      rgba(255,255,255,.24),
       transparent
     );
-  transition:.5s ease;
+
+  transition:.55s ease;
+
   pointer-events:none;
+  z-index:5;
 }
 
 .social-uplink:hover .logo-scan,
@@ -1839,48 +1880,73 @@ img{
 }
 
 
-/* LIVE TEXT */
+/* =========================================================
+   LIVE PLATFORM TEXT
+========================================================= */
 
 .social-uplink-info{
   min-width:0;
+  position:relative;
+  z-index:2;
 }
 
+/*
+  Platform name is the main text.
+  The username is intentionally hidden.
+*/
 .social-uplink-info span{
   display:block;
+
+  color:#fff;
+
   font:
-    800 11px
+    800 15px
     var(--heading);
-  letter-spacing:.14em;
+
+  letter-spacing:.13em;
+
+  transition:
+    color .25s ease,
+    text-shadow .25s ease;
 }
 
+.social-uplink:hover .social-uplink-info span,
+.social-uplink:focus-visible .social-uplink-info span,
+.social-uplink.selected .social-uplink-info span{
+  color:var(--uplink-color);
+  text-shadow:
+    0 0 14px var(--uplink-shadow);
+}
+
+/* Hide Twitch/Kick username */
 .social-uplink-info strong{
-  display:block;
-  margin-top:5px;
-  font-size:15px;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
+  display:none!important;
 }
 
 .social-uplink-info small{
   display:block;
-  margin-top:7px;
-  color:rgba(255,255,255,.40);
+  margin-top:5px;
+  color:rgba(255,255,255,.38);
   font:
-    700 8px
+    700 7px
     var(--heading);
   letter-spacing:.12em;
 }
 
 .social-connect{
   margin-left:auto;
-  align-self:flex-end;
-  color:rgba(255,255,255,.45);
+  align-self:center;
+  color:rgba(255,255,255,.35);
   font:
     700 8px
     var(--heading);
   letter-spacing:.1em;
   white-space:nowrap;
+  transition:.25s;
+}
+
+.social-uplink:hover .social-connect{
+  color:var(--uplink-color);
 }
 
 
@@ -1889,13 +1955,13 @@ img{
 ========================================================= */
 
 .external-panel{
-  margin-top:18px;
+  margin-top:16px;
 }
 
 .social-logo-grid{
   display:grid;
   grid-template-columns:repeat(5,minmax(0,1fr));
-  gap:12px;
+  gap:10px;
 }
 
 .social-tile{
@@ -1904,25 +1970,36 @@ img{
 
   position:relative;
   min-width:0;
-  min-height:155px;
+  min-height:135px;
   padding:16px 12px;
+
   display:flex;
   flex-direction:column;
   align-items:center;
   justify-content:center;
   text-align:center;
+
   gap:7px;
-  border:1px solid rgba(255,255,255,.09);
-  background:rgba(255,255,255,.018);
+
+  border:1px solid rgba(255,255,255,.08);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.03),
+      rgba(255,255,255,.008)
+    );
+
   color:#fff;
   text-decoration:none;
   overflow:hidden;
   touch-action:manipulation;
+
   transition:
-    transform .25s ease,
-    border-color .25s ease,
-    box-shadow .25s ease,
-    background .25s ease;
+    transform .3s ease,
+    border-color .3s ease,
+    box-shadow .3s ease,
+    background .3s ease;
 }
 
 .social-tile:before{
@@ -1930,12 +2007,14 @@ img{
   position:absolute;
   inset:0;
   opacity:0;
+
   background:
     radial-gradient(
-      circle at 50% 35%,
+      circle at 50% 38%,
       var(--social-color),
-      transparent 65%
+      transparent 67%
     );
+
   transition:.3s ease;
   pointer-events:none;
 }
@@ -1945,72 +2024,114 @@ img{
 .social-tile.selected{
   transform:translateY(-4px);
   border-color:var(--social-color);
+
   box-shadow:
-    0 0 28px var(--social-shadow);
+    0 15px 40px rgba(0,0,0,.35),
+    0 0 26px var(--social-shadow);
+
   outline:none;
 }
 
 .social-tile:hover:before,
 .social-tile:focus-visible:before,
 .social-tile.selected:before{
-  opacity:.12;
+  opacity:.09;
 }
 
 
-/* SOCIAL LOGO */
+/* =========================================================
+   EXTERNAL LOGOS
+   NO EXTRA BOX
+========================================================= */
 
 .social-tile-logo{
   position:relative;
-  width:64px;
-  height:64px;
+
+  width:62px;
+  height:62px;
+
   display:grid;
   place-items:center;
-  border:1px solid rgba(255,255,255,.12);
-  background:#08080a;
+
+  border:0!important;
+  background:transparent!important;
+  box-shadow:none!important;
+
+  overflow:visible;
+
   transition:
-    border-color .3s ease,
-    box-shadow .3s ease;
+    transform .3s ease,
+    filter .3s ease;
 }
 
 .social-tile-logo img{
-  width:40px;
-  height:40px;
+  width:48px;
+  height:48px;
+
   object-fit:contain;
   display:block;
-  transition:transform .3s ease;
+
+  border-radius:0;
+
+  transition:
+    transform .3s ease,
+    filter .3s ease;
 }
 
 .social-tile:hover .social-tile-logo,
 .social-tile:focus-visible .social-tile-logo,
 .social-tile.selected .social-tile-logo{
-  border-color:var(--social-color);
-  box-shadow:
-    0 0 20px var(--social-shadow);
+  transform:translateY(-2px);
 }
 
 .social-tile:hover .social-tile-logo img,
 .social-tile:focus-visible .social-tile-logo img,
 .social-tile.selected .social-tile-logo img{
   transform:scale(1.12);
+  filter:
+    drop-shadow(
+      0 0 11px var(--social-shadow)
+    );
 }
 
 
-/* SOCIAL TEXT */
+/* =========================================================
+   SOCIAL TEXT
+========================================================= */
 
 .social-tile>span{
   position:relative;
+
   font:
     700 10px
     var(--heading);
+
   letter-spacing:.08em;
+
+  color:#eee;
+
+  transition:
+    color .25s ease,
+    text-shadow .25s ease;
+}
+
+.social-tile:hover>span,
+.social-tile:focus-visible>span,
+.social-tile.selected>span{
+  color:var(--social-color);
+  text-shadow:
+    0 0 12px var(--social-shadow);
 }
 
 .social-tile>small{
   position:relative;
-  color:rgba(255,255,255,.38);
+
+  color:rgba(255,255,255,.35);
+
   font:
     700 7px
     var(--heading);
+
   letter-spacing:.08em;
 }
 
@@ -2018,8 +2139,12 @@ img{
   position:absolute;
   top:9px;
   right:10px;
+
   font-size:13px;
-  color:rgba(255,255,255,.35);
+  font-weight:400;
+
+  color:rgba(255,255,255,.28);
+
   transition:.2s;
 }
 
@@ -2031,7 +2156,9 @@ img{
 }
 
 
-/* PLATFORM COLORS */
+/* =========================================================
+   PLATFORM COLORS
+========================================================= */
 
 .youtube-tile{
   --social-color:var(--youtube);
@@ -2060,98 +2187,367 @@ img{
 
 
 /* =========================================================
-   PERSONAL SOCIAL
+   PERSONAL AREA
+   PREMIUM GAMING PROFILE
 ========================================================= */
 
 .personal-social{
-  align-items:flex-start;
-  padding:20px 0 0;
-  display:flex;
-  justify-content:space-between;
-  gap:20px;
-  font-size:12px;
+  position:relative;
+
+  display:grid;
+  grid-template-columns:260px 1fr;
+  align-items:stretch;
+
+  gap:28px;
+
+  margin-top:24px;
+  padding:24px;
+
+  border:1px solid rgba(255,255,255,.08);
+
+  background:
+    radial-gradient(
+      circle at 0% 50%,
+      rgba(229,9,20,.10),
+      transparent 30%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.035),
+      rgba(255,255,255,.008)
+    );
+
+  overflow:hidden;
 }
 
+.personal-social:before{
+  content:"";
+
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+
+  width:2px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent,
+      var(--red),
+      transparent
+    );
+
+  opacity:.9;
+}
+
+.personal-social:after{
+  content:"PROFILE // ONLINE";
+
+  position:absolute;
+  right:18px;
+  top:14px;
+
+  color:rgba(255,255,255,.16);
+
+  font:
+    700 7px
+    var(--heading);
+
+  letter-spacing:2px;
+  pointer-events:none;
+}
+
+
+/* =========================================================
+   PERSONAL PROFILE HEADER
+========================================================= */
+
 .personal-heading{
-  min-width:190px;
+  position:relative;
+
+  min-width:0;
+
+  padding:4px 0 4px 4px;
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.personal-heading:before{
+  content:"";
+
+  width:34px;
+  height:2px;
+
+  margin-bottom:15px;
+
+  background:var(--red);
+
+  box-shadow:
+    0 0 14px rgba(229,9,20,.65);
 }
 
 .personal-heading span{
   display:block;
-  font-size:15px!important;
+
+  color:#fff!important;
+
+  font:
+    900 20px
+    var(--heading)!important;
+
   letter-spacing:2px!important;
-  color:#ddd!important;
-  font-weight:900!important;
+
+  line-height:1.1;
+
+  text-shadow:
+    0 0 22px rgba(229,9,20,.12);
 }
 
 .personal-heading small{
-  display:block;
-  color:#555;
-  font-size:11px!important;
-  margin-top:5px;
+  display:inline-flex;
+
+  align-items:center;
+
+  width:max-content;
+
+  margin-top:9px;
+
+  padding:5px 8px;
+
+  color:#ff5a60!important;
+
+  border:1px solid rgba(229,9,20,.30);
+
+  background:rgba(229,9,20,.045);
+
+  font:
+    700 8px
+    var(--heading)!important;
+
+  letter-spacing:1.5px;
+
+  text-transform:uppercase;
 }
+
+.personal-heading small:before{
+  content:"";
+
+  width:5px;
+  height:5px;
+
+  margin-right:7px;
+
+  border-radius:50%;
+
+  background:#62ff70;
+
+  box-shadow:
+    0 0 9px rgba(98,255,112,.8);
+
+  animation:pulse 1.6s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   PERSONAL ROLE
+========================================================= */
+
+.personal-role{
+  margin-top:13px;
+
+  color:#666;
+
+  font:
+    700 8px
+    var(--heading);
+
+  letter-spacing:1.5px;
+}
+
+.personal-role strong{
+  color:#ddd;
+  margin-left:5px;
+}
+
+
+/* =========================================================
+   PERSONAL LINKS
+========================================================= */
 
 .personal-links{
   display:grid;
-  grid-template-columns:repeat(2,minmax(180px,1fr));
-  gap:12px;
+
+  grid-template-columns:
+    repeat(2,minmax(180px,1fr));
+
+  gap:10px;
+
   width:100%;
 }
 
+
+/* =========================================================
+   PERSONAL CARD
+========================================================= */
+
 .personal-card{
   position:relative;
+
+  min-height:76px;
+
   display:flex;
   flex-direction:column;
+  justify-content:center;
+
   gap:3px;
-  padding:15px 38px 15px 54px;
-  border:1px solid var(--line);
-  background:rgba(255,255,255,.025);
-  transition:.25s;
+
+  padding:14px 38px 14px 58px;
+
+  border:1px solid rgba(255,255,255,.07);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.028),
+      rgba(255,255,255,.008)
+    );
+
+  overflow:hidden;
+
+  transition:
+    transform .28s ease,
+    border-color .28s ease,
+    background .28s ease,
+    box-shadow .28s ease;
+}
+
+.personal-card:before{
+  content:"";
+
+  position:absolute;
+
+  left:0;
+  bottom:0;
+
+  width:0;
+  height:2px;
+
+  background:var(--red);
+
+  box-shadow:
+    0 0 15px rgba(229,9,20,.6);
+
+  transition:.3s ease;
 }
 
 .personal-card:hover{
-  border-color:rgba(229,9,20,.5);
-  background:rgba(229,9,20,.05);
-  transform:translateY(-2px);
+  border-color:rgba(229,9,20,.42);
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(229,9,20,.055),
+      rgba(255,255,255,.008)
+    );
+
+  transform:translateY(-3px);
+
+  box-shadow:
+    0 12px 30px rgba(0,0,0,.3),
+    0 0 22px rgba(229,9,20,.06);
+}
+
+.personal-card:hover:before{
+  width:100%;
 }
 
 .personal-card strong{
   font:
     700 10px
     var(--heading);
+
   letter-spacing:1.5px;
+
+  color:#eee;
 }
 
 .personal-card small{
-  color:#777;
+  color:#666;
+  font-size:9px;
 }
 
 .personal-card>b{
   position:absolute;
-  right:15px;
-  top:15px;
-  color:#666;
+
+  right:14px;
+  top:13px;
+
+  color:#444;
+
+  font-size:13px;
+  font-weight:400;
+
+  transition:.25s;
 }
+
+.personal-card:hover>b{
+  color:var(--red);
+
+  transform:
+    translate(2px,-2px);
+}
+
+
+/* =========================================================
+   PERSONAL ICON
+   DIRECT LOGO — NO BOX
+========================================================= */
 
 .personal-icon{
   position:absolute;
-  left:14px;
-  top:15px;
-  width:28px;
-  height:28px;
+
+  left:15px;
+  top:50%;
+
+  width:30px;
+  height:30px;
+
+  transform:translateY(-50%);
+
   display:grid;
   place-items:center;
+
   border:0!important;
   background:transparent!important;
   box-shadow:none!important;
+
   overflow:visible!important;
 }
 
 .personal-icon img{
-  width:25px;
-  height:25px;
+  width:27px;
+  height:27px;
+
   object-fit:contain;
   display:block;
+
+  border-radius:0;
+
+  transition:
+    transform .25s ease,
+    filter .25s ease;
+}
+
+.personal-card:hover .personal-icon img{
+  transform:scale(1.12);
+
+  filter:
+    drop-shadow(
+      0 0 8px rgba(229,9,20,.35)
+    );
 }
 
 
@@ -2631,6 +3027,11 @@ img{
     grid-template-columns:repeat(3,1fr);
   }
 
+  .personal-social{
+    grid-template-columns:220px 1fr;
+    gap:20px;
+  }
+
 }
 
 
@@ -2701,7 +3102,7 @@ img{
   }
 
   .social-command-panel{
-    padding:18px;
+    padding:0;
   }
 
   .live-uplink-grid{
@@ -2713,11 +3114,17 @@ img{
   }
 
   .personal-social{
-    flex-direction:column;
+    grid-template-columns:1fr;
+    gap:20px;
+    padding:22px;
+  }
+
+  .personal-heading{
+    padding-right:80px;
   }
 
   .personal-links{
-    grid-template-columns:1fr;
+    grid-template-columns:repeat(2,minmax(0,1fr));
   }
 
   .support-panel{
@@ -2754,11 +3161,6 @@ img{
 
 @media(max-width:700px){
 
-  .social-command-panel{
-    padding:15px;
-    margin-top:18px;
-  }
-
   .social-command-header{
     align-items:flex-start;
   }
@@ -2780,24 +3182,28 @@ img{
   }
 
   .social-uplink{
-    min-height:104px;
-    padding:13px;
-    gap:13px;
+    min-height:96px;
+    padding:13px 15px;
+    gap:11px;
   }
 
   .social-logo-box{
-    flex-basis:58px;
-    width:58px;
-    height:58px;
+    flex-basis:55px;
+    width:55px;
+    height:55px;
   }
 
   .social-logo-box img{
-    width:38px;
-    height:38px;
+    width:45px;
+    height:45px;
   }
 
-  .social-uplink-info strong{
-    font-size:13px;
+  .social-uplink-info span{
+    font-size:12px;
+  }
+
+  .social-uplink-info small{
+    font-size:6.5px;
   }
 
   .social-connect{
@@ -2809,7 +3215,7 @@ img{
   }
 
   .social-tile{
-    min-height:140px;
+    min-height:130px;
   }
 
   .discord-tile{
@@ -2829,7 +3235,27 @@ img{
   }
 
   .personal-social{
-    flex-direction:column;
+    grid-template-columns:1fr;
+    padding:18px;
+    gap:18px;
+  }
+
+  .personal-heading{
+    padding-right:55px;
+  }
+
+  .personal-heading span{
+    font-size:17px!important;
+  }
+
+  .personal-links{
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+  }
+
+  .personal-card{
+    min-height:70px;
+    padding-left:52px;
   }
 
 }
@@ -3075,9 +3501,8 @@ img{
     flex-basis:50px;
   }
 
-  .social-command-panel{
-    padding:13px;
-  }
+
+  /* SOCIAL */
 
   .social-command-header{
     gap:8px;
@@ -3097,8 +3522,28 @@ img{
     display:none;
   }
 
-  .social-uplink-info strong{
-    max-width:150px;
+  .social-uplink{
+    min-height:86px;
+    padding:11px;
+  }
+
+  .social-logo-box{
+    flex-basis:48px;
+    width:48px;
+    height:48px;
+  }
+
+  .social-logo-box img{
+    width:40px;
+    height:40px;
+  }
+
+  .social-uplink-info span{
+    font-size:10px;
+  }
+
+  .social-uplink-info small{
+    font-size:6px;
   }
 
   .social-connect{
@@ -3110,22 +3555,74 @@ img{
   }
 
   .social-tile{
-    min-height:125px;
+    min-height:120px;
     padding:12px 8px;
   }
 
   .social-tile-logo{
-    width:55px;
-    height:55px;
+    width:52px;
+    height:52px;
   }
 
   .social-tile-logo img{
-    width:34px;
-    height:34px;
+    width:42px;
+    height:42px;
   }
 
   .discord-tile{
     grid-column:span 2;
+  }
+
+
+  /* PERSONAL */
+
+  .personal-social{
+    margin-top:18px;
+    padding:16px;
+  }
+
+  .personal-heading{
+    padding-right:30px;
+  }
+
+  .personal-heading:before{
+    margin-bottom:11px;
+  }
+
+  .personal-heading span{
+    font-size:15px!important;
+    letter-spacing:1.5px!important;
+  }
+
+  .personal-heading small{
+    font-size:7px!important;
+  }
+
+  .personal-links{
+    grid-template-columns:1fr;
+    gap:7px;
+  }
+
+  .personal-card{
+    min-height:62px;
+    padding:12px 35px 12px 51px;
+  }
+
+  .personal-card strong{
+    font-size:9px;
+  }
+
+  .personal-card small{
+    font-size:8px;
+  }
+
+  .personal-icon{
+    left:13px;
+  }
+
+  .personal-icon img{
+    width:25px;
+    height:25px;
   }
 
   .agent-easter-box{
@@ -3159,35 +3656,39 @@ img{
   }
 
   .social-uplink{
-    padding:10px;
-    gap:10px;
+    padding:9px;
+    gap:8px;
   }
 
   .social-logo-box{
-    flex-basis:52px;
-    width:52px;
-    height:52px;
+    flex-basis:44px;
+    width:44px;
+    height:44px;
   }
 
   .social-logo-box img{
-    width:34px;
-    height:34px;
+    width:37px;
+    height:37px;
   }
 
   .social-uplink-info span{
     font-size:9px;
   }
 
-  .social-uplink-info strong{
-    font-size:11px;
-  }
-
   .social-uplink-info small{
-    font-size:7px;
+    font-size:6px;
   }
 
   .social-tile{
-    min-height:115px;
+    min-height:110px;
+  }
+
+  .personal-social{
+    padding:13px;
+  }
+
+  .personal-heading span{
+    font-size:14px!important;
   }
 
 }
