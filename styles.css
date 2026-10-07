@@ -318,3 +318,437 @@ a{color:inherit;text-decoration:none}
   .games-grid-four { grid-template-columns: 1fr; }
   .game-art, .game-card-image { height: 210px; }
 }
+
+/* =========================================================
+   HITMAN HQ // SOCIAL COMMAND CENTER
+   ========================================================= */
+
+.hitman-social-command {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle HQ grid */
+.hitman-social-command::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: .18;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Header system status */
+
+.hq-system-status {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font: 700 9px var(--heading);
+  letter-spacing: 1.8px;
+  color: #777;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #e50914;
+  box-shadow: 0 0 10px rgba(229,9,20,.65);
+  animation: hqPulse 1.8s infinite;
+}
+
+@keyframes hqPulse {
+  0%,100% {
+    opacity: .45;
+    transform: scale(.85);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* Command groups */
+
+.social-command-group {
+  position: relative;
+  z-index: 1;
+  margin-top: 24px;
+}
+
+
+/* Section command heading */
+
+.command-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+  margin-bottom: 10px;
+  padding-left: 12px;
+  border-left: 2px solid #e50914;
+}
+
+.command-code {
+  display: block;
+  margin-bottom: 5px;
+  color: #666;
+  font: 700 8px var(--heading);
+  letter-spacing: 2px;
+}
+
+.command-label h3 {
+  margin: 0;
+  color: #ddd;
+  font: 700 13px var(--heading);
+  letter-spacing: 1.5px;
+}
+
+.command-status {
+  color: #777;
+  font: 700 8px var(--heading);
+  letter-spacing: 1.5px;
+}
+
+.command-status::first-letter {
+  color: #e50914;
+}
+
+
+/* Streaming */
+
+.streaming-group {
+  padding: 18px;
+  border: 1px solid rgba(229,9,20,.35);
+  background:
+    linear-gradient(90deg, rgba(229,9,20,.055), transparent 65%),
+    rgba(255,255,255,.015);
+  box-shadow:
+    inset 0 0 35px rgba(229,9,20,.025),
+    0 0 30px rgba(0,0,0,.2);
+}
+
+.streaming-group::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -25%;
+  width: 20%;
+  height: 1px;
+  background: #e50914;
+  box-shadow: 0 0 12px rgba(229,9,20,.8);
+  animation: hqScan 5s linear infinite;
+}
+
+@keyframes hqScan {
+  0% {
+    left: -25%;
+  }
+
+  100% {
+    left: 105%;
+  }
+}
+
+.streaming-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+
+/* Main network */
+
+.hq-network-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+
+/* Social command card */
+
+.command-social {
+  position: relative;
+  min-height: 74px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 13px 15px;
+  overflow: hidden;
+
+  color: #ddd;
+  text-decoration: none;
+
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.018);
+
+  transition:
+    border-color .25s ease,
+    background .25s ease,
+    transform .25s ease,
+    box-shadow .25s ease;
+}
+
+
+/* Tactical corner */
+
+.command-social::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 18px;
+  height: 1px;
+  background: #555;
+  transition: width .25s ease;
+}
+
+.command-social::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 18px;
+  height: 1px;
+  background: #333;
+}
+
+
+/* Hover */
+
+.command-social:hover {
+  transform: translateX(3px);
+  border-color: rgba(229,9,20,.45);
+  background:
+    linear-gradient(90deg, rgba(229,9,20,.07), transparent 70%);
+  box-shadow:
+    inset 3px 0 0 #e50914,
+    0 8px 25px rgba(0,0,0,.2);
+}
+
+.command-social:hover::before {
+  width: 65px;
+  background: #e50914;
+}
+
+
+/* Number */
+
+.channel-index {
+  width: 22px;
+  flex-shrink: 0;
+  color: #444;
+  font: 700 8px var(--heading);
+  letter-spacing: 1px;
+}
+
+
+/* Icons */
+
+.command-social-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: transparent;
+}
+
+.command-social-icon img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  display: block;
+
+  filter:
+    grayscale(1)
+    brightness(1.7)
+    drop-shadow(0 0 4px rgba(255,255,255,.08));
+
+  transition:
+    transform .25s ease,
+    filter .25s ease;
+}
+
+.command-social:hover .command-social-icon img {
+  transform: scale(1.12);
+
+  filter:
+    grayscale(.15)
+    brightness(1.15)
+    drop-shadow(0 0 8px rgba(229,9,20,.45));
+}
+
+
+/* Text */
+
+.command-social-info {
+  min-width: 0;
+}
+
+.command-social-info b {
+  display: block;
+  color: #ddd;
+  font: 700 10px var(--heading);
+  letter-spacing: 1.5px;
+}
+
+.command-social-info small {
+  display: block;
+  margin-top: 4px;
+  overflow: hidden;
+
+  color: #666;
+  font-size: 10px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  transition: color .2s ease;
+}
+
+.command-social:hover .command-social-info small {
+  color: #999;
+}
+
+
+/* Arrow */
+
+.command-arrow {
+  margin-left: auto;
+  color: #444;
+  font-size: 15px;
+  transition:
+    color .2s ease,
+    transform .2s ease;
+}
+
+.command-social:hover .command-arrow {
+  color: #e50914;
+  transform: translate(2px,-2px);
+}
+
+
+/* Streaming-specific */
+
+.stream-channel {
+  border-color: rgba(229,9,20,.25);
+}
+
+.stream-channel .channel-index {
+  color: rgba(229,9,20,.55);
+}
+
+.stream-channel .command-social-info b {
+  color: #fff;
+}
+
+
+/* Live indicator */
+
+.channel-live {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  color: #777;
+  font: 700 7px var(--heading);
+  letter-spacing: 1px;
+  white-space: nowrap;
+}
+
+.channel-live i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #e50914;
+  box-shadow: 0 0 8px rgba(229,9,20,.7);
+  animation: hqPulse 1.4s infinite;
+}
+
+
+/* Personal section */
+
+.hitman-social-command .personal-social {
+  position: relative;
+  z-index: 1;
+  margin-top: 24px;
+  background: rgba(255,255,255,.012);
+  border-color: rgba(255,255,255,.07);
+}
+
+.hitman-social-command .personal-card:hover {
+  transform: translateY(-2px);
+}
+
+
+/* Mobile */
+
+@media (max-width: 700px) {
+
+  .hq-system-status {
+    display: none;
+  }
+
+  .command-label {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .streaming-grid,
+  .hq-network-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .streaming-group {
+    padding: 13px;
+  }
+
+  .command-social {
+    min-height: 68px;
+    padding: 11px 12px;
+    gap: 10px;
+  }
+
+  .channel-index {
+    width: 18px;
+  }
+
+  .command-social-icon {
+    width: 34px;
+    height: 34px;
+  }
+
+  .command-social-icon img {
+    width: 27px;
+    height: 27px;
+  }
+
+  .channel-live {
+    display: none;
+  }
+
+  .command-social-info b {
+    font-size: 9px;
+  }
+
+  .command-social-info small {
+    font-size: 9px;
+  }
+
+  .hitman-social-command .personal-social {
+    flex-direction: column;
+  }
+
+  .hitman-social-command .personal-links {
+    grid-template-columns: 1fr;
+  }
+}
