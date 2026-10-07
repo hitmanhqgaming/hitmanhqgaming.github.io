@@ -1,302 +1,1355 @@
-const HQ_GAMES = [
-  // EDIT THIS LIST to add/remove/update games in the future.
-  { name: "RESIDENT EVIL", genre: "Horror • Survival", label: "VILLAGE", url: "https://www.residentevil.com/village/", art: "https://cdn.akamai.steamstatic.com/steam/apps/1196590/header.jpg" },
-  { name: "GOD OF WAR", genre: "Action • Adventure", label: "GOD OF WAR", url: "https://www.playstation.com/en-in/games/god-of-war/", art: "https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600-fbdf3cbc2980749091d52751ffabb7b7" },
-  { name: "BGMI", genre: "Battle Royale • Shooter", label: "BGMI", url: "https://www.battlegroundsmobileindia.com/", art: "https://akm-img-a-in.tosshub.com/sites/itgaming/resources/202412/unnamed271224011520.png?size=1200%3A675" },
-  { name: "ROBLOX", genre: "Adventure • Multiplayer", label: "ROBLOX", url: "https://www.roblox.com/", art: "https://cms-media.roblox.com/assets/93732cb0-db70-1bdc-923c-f7526dc7086c.webp" }
-];
+/* =========================================================
+   HITMAN HQ GAMING — MAIN SITE SCRIPT
+   ========================================================= */
 
-function renderGames() {
-  const grid = document.getElementById("gameGrid");
+/* =========================================================
+   GAME ROOM
+   EDIT ONLY THIS SECTION TO UPDATE GAMES IN THE FUTURE.
+   ========================================================= */
+
+const HQ_GAMES = {
+  currentlyPlaying: {
+    name: "RESIDENT EVIL REQUIEM",
+    genre: "Horror • Survival",
+    label: "CURRENTLY PLAYING",
+    url: "https://www.residentevil.com/requiem/",
+    art: "https://image.api.playstation.com/vulcan/ap/rnd/202509/3015/2f6e2d5c4f9d3f9f1c0a7a7f0e5f1c4d7e4f1f1e.png"
+  },
+
+  upNext: {
+    name: "SEKIRO: SHADOWS DIE TWICE",
+    genre: "Action • Soulslike",
+    label: "UP NEXT",
+    url: "https://www.sekirothegame.com/",
+    art: "https://cdn.akamai.steamstatic.com/steam/apps/814380/header.jpg"
+  },
+
+  playedOnStream: [
+    {
+      name: "RESIDENT EVIL VILLAGE",
+      genre: "Horror • Survival",
+      label: "RESIDENT EVIL",
+      url: "https://www.residentevil.com/village/",
+      art: "https://cdn.akamai.steamstatic.com/steam/apps/1196590/header.jpg"
+    },
+
+    {
+      name: "GOD OF WAR",
+      genre: "Action • Adventure",
+      label: "GOD OF WAR",
+      url: "https://www.playstation.com/en-in/games/god-of-war/",
+      art: "https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600"
+    },
+
+    {
+      name: "BGMI",
+      genre: "Battle Royale • Shooter",
+      label: "BGMI",
+      url: "https://www.battlegroundsmobileindia.com/",
+      art: "https://akm-img-a-in.tosshub.com/sites/itgaming/resources/202412/unnamed271224011520.png?size=1200%3A675"
+    },
+
+    {
+      name: "ROBLOX",
+      genre: "Adventure • Multiplayer",
+      label: "ROBLOX",
+      url: "https://www.roblox.com/",
+      art: "https://cms-media.roblox.com/assets/93732cb0-db70-1bdc-923c-f7526dc7086c.webp"
+    },
+
+    {
+      name: "GOD OF WAR",
+      genre: "Action • Adventure",
+      label: "GOD OF WAR (2005)",
+      url: "https://www.playstation.com/en-us/games/god-of-war/",
+      art: "https://upload.wikimedia.org/wikipedia/en/7/7b/God_of_War_2005_cover.jpg"
+    },
+
+    {
+      name: "GOD OF WAR: ASCENSION",
+      genre: "Action • Adventure",
+      label: "ASCENSION",
+      url: "https://www.playstation.com/en-us/games/god-of-war-ascension/",
+      art: "https://upload.wikimedia.org/wikipedia/en/3/34/God_of_War_-_Ascension_cover.jpg"
+    },
+
+    {
+      name: "GOD OF WAR: CHAINS OF OLYMPUS",
+      genre: "Action • Adventure",
+      label: "CHAINS OF OLYMPUS",
+      url: "https://www.playstation.com/",
+      art: "https://upload.wikimedia.org/wikipedia/en/4/47/God_of_War_-_Chains_of_Olympus_cover.jpg"
+    },
+
+    {
+      name: "007: FIRST LIGHT",
+      genre: "Action • Stealth",
+      label: "007: FIRST LIGHT",
+      url: "https://www.007firstlight.com/",
+      art: "https://image.api.playstation.com/vulcan/ap/rnd/202506/0410/007-first-light.png"
+    }
+  ]
+};
+
+
+/* =========================================================
+   GAME HELPERS
+   ========================================================= */
+
+function escapeHTML(value = "") {
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;"
+  }[c]));
+}
+
+function escapeAttribute(value = "") {
+  return escapeHTML(value).replace(/`/g, "&#096;");
+}
+
+function gameArtwork(game) {
+  return String(game?.art || "").replace(/'/g, "%27");
+}
+
+
+/* =========================================================
+   CURRENTLY PLAYING
+   ========================================================= */
+
+function renderCurrentlyPlaying() {
+  const card = document.getElementById("currentlyPlayingCard");
+  if (!card) return;
+
+  const game = HQ_GAMES.currentlyPlaying;
+
+  if (!game) {
+    card.innerHTML = `
+      <div class="game-feature-empty">
+        CURRENTLY PLAYING
+      </div>
+    `;
+    return;
+  }
+
+  const name = escapeHTML(game.name);
+  const genre = escapeHTML(game.genre);
+  const label = escapeHTML(game.label || "CURRENTLY PLAYING");
+  const url = escapeAttribute(game.url || "#");
+  const art = gameArtwork(game);
+
+  card.innerHTML = `
+    <a
+      class="game-feature-link"
+      href="${url}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open ${name}"
+    >
+      <div
+        class="game-feature-art"
+        style="
+          background-image:
+            linear-gradient(90deg, rgba(0,0,0,.88) 0%, rgba(0,0,0,.50) 48%, rgba(0,0,0,.18) 100%),
+            linear-gradient(180deg, rgba(0,0,0,.08) 35%, rgba(0,0,0,.78) 100%),
+            url('${art}');
+        "
+      >
+        <div class="game-feature-content">
+          <span class="game-feature-status current-status">
+            <span class="game-feature-status-dot"></span>
+            ${label}
+          </span>
+
+          <div class="game-feature-index">01 // ACTIVE TITLE</div>
+
+          <h3>${name}</h3>
+
+          <p>${genre}</p>
+
+          <span class="game-feature-action">
+            VIEW GAME <span>→</span>
+          </span>
+        </div>
+      </div>
+    </a>
+  `;
+}
+
+
+/* =========================================================
+   UP NEXT
+   ========================================================= */
+
+function renderUpNext() {
+  const card = document.getElementById("upNextCard");
+  if (!card) return;
+
+  const game = HQ_GAMES.upNext;
+
+  if (!game) {
+    card.innerHTML = `
+      <div class="game-feature-empty">
+        UP NEXT
+      </div>
+    `;
+    return;
+  }
+
+  const name = escapeHTML(game.name);
+  const genre = escapeHTML(game.genre);
+  const label = escapeHTML(game.label || "UP NEXT");
+  const url = escapeAttribute(game.url || "#");
+  const art = gameArtwork(game);
+
+  card.innerHTML = `
+    <a
+      class="game-feature-link"
+      href="${url}"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Open ${name}"
+    >
+      <div
+        class="game-feature-art"
+        style="
+          background-image:
+            linear-gradient(90deg, rgba(0,0,0,.86) 0%, rgba(0,0,0,.48) 48%, rgba(0,0,0,.18) 100%),
+            linear-gradient(180deg, rgba(0,0,0,.08) 35%, rgba(0,0,0,.78) 100%),
+            url('${art}');
+        "
+      >
+        <div class="game-feature-content">
+          <span class="game-feature-status next-status">
+            <span class="game-feature-status-dot"></span>
+            ${label}
+          </span>
+
+          <div class="game-feature-index">02 // NEXT OPERATION</div>
+
+          <h3>${name}</h3>
+
+          <p>${genre}</p>
+
+          <span class="game-feature-action">
+            VIEW GAME <span>→</span>
+          </span>
+        </div>
+      </div>
+    </a>
+  `;
+}
+
+
+/* =========================================================
+   PLAYED ON STREAM
+   ========================================================= */
+
+function renderPlayedGames() {
+  const grid = document.getElementById("playedGamesGrid");
   if (!grid) return;
-  grid.innerHTML = HQ_GAMES.map(game => {
+
+  const games = Array.isArray(HQ_GAMES.playedOnStream)
+    ? HQ_GAMES.playedOnStream
+    : [];
+
+  if (!games.length) {
+    grid.innerHTML = `
+      <div class="loading-card">
+        NO ARCHIVED GAMES
+      </div>
+    `;
+    return;
+  }
+
+  grid.innerHTML = games.map((game, index) => {
     const name = escapeHTML(game.name);
     const genre = escapeHTML(game.genre);
     const label = escapeHTML(game.label || game.name);
-    const url = escapeHTML(game.url);
-    const art = String(game.art || "").replace(/'/g, "%27");
-    return `<a class="game-card" href="${url}" target="_blank" rel="noopener">
-      <div class="game-art" role="img" aria-label="${name} official artwork" style="background-image:linear-gradient(180deg,rgba(0,0,0,.08) 15%,rgba(0,0,0,.82) 100%),linear-gradient(90deg,rgba(0,0,0,.45),transparent),url('${art}')">
-        <span>${label}</span>
-      </div>
-      <div><h3>${name}</h3><p>${genre}</p></div>
-    </a>`;
+    const url = escapeAttribute(game.url || "#");
+    const art = gameArtwork(game);
+
+    return `
+      <a
+        class="game-compact-card"
+        href="${url}"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Open ${name}"
+      >
+        <div
+          class="game-compact-art"
+          style="
+            background-image:
+              linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.72)),
+              url('${art}');
+          "
+        >
+          <span class="game-compact-number">
+            ${String(index + 1).padStart(2, "0")}
+          </span>
+
+          <span class="game-compact-label">
+            ${label}
+          </span>
+        </div>
+
+        <div class="game-compact-info">
+          <h3>${name}</h3>
+          <p>${genre}</p>
+        </div>
+
+        <span class="game-compact-arrow">→</span>
+      </a>
+    `;
   }).join("");
 }
 
+
+/* =========================================================
+   RENDER ALL GAMES
+   ========================================================= */
+
+function renderGames() {
+  renderCurrentlyPlaying();
+  renderUpNext();
+  renderPlayedGames();
+}
+
+
+/* =========================================================
+   YOUTUBE / CONTENT CONFIG
+   ========================================================= */
+
 const CHANNEL_ID = "UCClntt9HBQirLO6m0klTY4g";
 const CHANNEL_URL = "https://www.youtube.com/@HitmanHQGaming";
-const HITMAN_HQ_API = "https://hitman-hq-api.uikeyshiva14.workers.dev";
+const SHORTS_URL = "https://www.youtube.com/@HitmanHQGaming/shorts";
+
+const HITMAN_HQ_API =
+  "https://hitman-hq-api.uikeyshiva14.workers.dev";
+
+
+/* =========================================================
+   DOM REFERENCES
+   ========================================================= */
 
 const heroLiveBadge = document.getElementById("heroLiveBadge");
+
 const featuredThumb = document.getElementById("featuredThumb");
 const featuredTitle = document.getElementById("featuredTitle");
 const featuredDate = document.getElementById("featuredDate");
 const featuredWatch = document.getElementById("featuredWatch");
 const featuredBadge = document.getElementById("featuredBadge");
+
 const contentGrid = document.getElementById("contentGrid");
+
 const liveStatus = document.getElementById("liveStatus");
 const liveTitle = document.getElementById("liveTitle");
 const liveMessage = document.getElementById("liveMessage");
 const liveButton = document.getElementById("liveButton");
+
 const featuredShortThumb = document.getElementById("featuredShortThumb");
 const featuredShortTitle = document.getElementById("featuredShortTitle");
-const featuredShortDescription = document.getElementById("featuredShortDescription");
-const featuredShortWatch = document.getElementById("featuredShortWatch");
+const featuredShortDescription =
+  document.getElementById("featuredShortDescription");
+const featuredShortWatch =
+  document.getElementById("featuredShortWatch");
 
-function escapeHTML(value = "") {
-  return String(value).replace(/[&<>"']/g, c => ({
-    "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-  }[c]));
-}
+
+/* =========================================================
+   YOUTUBE HELPERS
+   ========================================================= */
 
 function formatDate(dateString) {
+  if (!dateString) return "";
+
   const d = new Date(dateString);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" });
+
+  if (Number.isNaN(d.getTime())) {
+    return "";
+  }
+
+  return d.toLocaleDateString("en-IN", {
+    day: "numeric",
+    month: "short",
+    year: "numeric"
+  });
 }
+
 
 function youtubeId(item = {}) {
   if (item.videoId) return item.videoId;
+
   if (item.video_id) return item.video_id;
-  if (item.guid && item.guid.includes("yt:video:")) return item.guid.split(":").pop();
-  const link = item.link || item.url || "";
-  if (link) {
-    try {
-      const url = new URL(link);
-      if (url.searchParams.get("v")) return url.searchParams.get("v");
-      const match = url.pathname.match(/\/(?:shorts|live)\/([A-Za-z0-9_-]{6,})/);
-      if (match) return match[1];
-    } catch (_) {}
+
+  if (
+    item.guid &&
+    typeof item.guid === "string" &&
+    item.guid.includes("yt:video:")
+  ) {
+    return item.guid.split(":").pop();
   }
+
+  const link = item.link || item.url || "";
+
+  if (!link) return "";
+
+  try {
+    const url = new URL(link);
+
+    if (url.searchParams.get("v")) {
+      return url.searchParams.get("v");
+    }
+
+    const match = url.pathname.match(
+      /\/(?:shorts|live|embed)\/([A-Za-z0-9_-]{6,})/
+    );
+
+    if (match) {
+      return match[1];
+    }
+  } catch (_) {}
+
   return "";
 }
 
+
 function videoUrl(item = {}) {
   const id = youtubeId(item);
-  if (item.url && /youtube\.com\/shorts\//i.test(item.url)) return item.url;
-  if (item.url) return item.url;
-  return id ? `https://www.youtube.com/watch?v=${id}` : (item.link || CHANNEL_URL);
+
+  if (
+    item.url &&
+    /youtube\.com\/shorts\//i.test(item.url)
+  ) {
+    return item.url;
+  }
+
+  if (item.url) {
+    return item.url;
+  }
+
+  if (item.link) {
+    return item.link;
+  }
+
+  return id
+    ? `https://www.youtube.com/watch?v=${id}`
+    : CHANNEL_URL;
 }
+
 
 function normalizeApiItem(item) {
   if (!item) return null;
+
+  const id =
+    item.video_id ||
+    item.videoId ||
+    youtubeId(item);
+
   return {
-    video_id: item.video_id || item.videoId || youtubeId(item),
-    videoId: item.video_id || item.videoId || youtubeId(item),
-    title: item.title || "",
-    url: item.url || item.link || CHANNEL_URL,
-    link: item.url || item.link || CHANNEL_URL,
-    thumbnail: item.thumbnail || "",
-    published_at: item.published_at || item.pubDate || "",
-    pubDate: item.published_at || item.pubDate || "",
-    content_type: item.content_type || "YouTube"
+    video_id: id,
+    videoId: id,
+
+    title:
+      item.title ||
+      item.name ||
+      "",
+
+    url:
+      item.url ||
+      item.link ||
+      (id
+        ? `https://www.youtube.com/watch?v=${id}`
+        : CHANNEL_URL),
+
+    link:
+      item.url ||
+      item.link ||
+      (id
+        ? `https://www.youtube.com/watch?v=${id}`
+        : CHANNEL_URL),
+
+    thumbnail:
+      item.thumbnail ||
+      item.thumb ||
+      item.image ||
+      "",
+
+    published_at:
+      item.published_at ||
+      item.publishedAt ||
+      item.pubDate ||
+      item.date ||
+      "",
+
+    pubDate:
+      item.published_at ||
+      item.publishedAt ||
+      item.pubDate ||
+      item.date ||
+      "",
+
+    content_type:
+      item.content_type ||
+      item.contentType ||
+      item.type ||
+      "YouTube",
+
+    is_live:
+      item.is_live === true ||
+      item.isLive === true,
+
+    live_status:
+      item.live_status ||
+      item.liveStatus ||
+      ""
   };
 }
 
+
+/* =========================================================
+   CONTENT TYPE DETECTION
+   ========================================================= */
+
 function isShort(item = {}) {
-  return /(?:#shorts\b|\bshorts\b)/i.test(item.title || "") || /youtube\.com\/shorts\//i.test(item.url || item.link || "");
+  const title = item.title || "";
+  const url = item.url || item.link || "";
+
+  return (
+    /(?:#shorts\b|\bshorts\b)/i.test(title) ||
+    /youtube\.com\/shorts\//i.test(url)
+  );
 }
+
 
 function isLive(item = {}) {
   if (!item) return false;
-  if (item.is_live === true || item.live_status === "live") return true;
-  const title = (item.title || "").toLowerCase();
-  return /\b(live|stream)\b/.test(title) && item.pubDate &&
-    (Date.now() - new Date(item.pubDate).getTime()) < 1000 * 60 * 60 * 24;
+
+  if (
+    item.is_live === true ||
+    item.live_status === "live" ||
+    item.live_status === "LIVE"
+  ) {
+    return true;
+  }
+
+  return false;
 }
 
+
 function contentBadge(item) {
-  if (isLive(item)) return "LIVE";
-  return isShort(item) ? "SHORTS" : "YOUTUBE";
+  if (isLive(item)) {
+    return "LIVE";
+  }
+
+  if (isShort(item)) {
+    return "SHORTS";
+  }
+
+  return "YOUTUBE";
 }
+
+
+/* =========================================================
+   CONTENT CARD
+   ========================================================= */
 
 function renderCard(item) {
   const id = youtubeId(item);
-  const thumb = item.thumbnail || (id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : "");
+
+  const thumb =
+    item.thumbnail ||
+    (
+      id
+        ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg`
+        : ""
+    );
+
   const url = videoUrl(item);
+
   return `
     <article class="content-card">
-      <a class="thumb" href="${escapeHTML(url)}" target="_blank" rel="noopener">
-        ${thumb ? `<img src="${escapeHTML(thumb)}" alt="" loading="lazy">` : `<div class="thumb-placeholder">HQ</div>`}
+
+      <a
+        class="thumb"
+        href="${escapeAttribute(url)}"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ${
+          thumb
+            ? `
+              <img
+                src="${escapeAttribute(thumb)}"
+                alt=""
+                loading="lazy"
+              >
+            `
+            : `
+              <div class="thumb-placeholder">
+                HQ
+              </div>
+            `
+        }
       </a>
+
       <div class="body">
-        <span class="platform-badge">${contentBadge(item)}</span>
-        <h3>${escapeHTML(item.title || "Untitled")}</h3>
-        <p>${formatDate(item.pubDate)}</p>
-        <a class="watch-link" href="${escapeHTML(url)}" target="_blank" rel="noopener">WATCH →</a>
+
+        <span class="platform-badge">
+          ${contentBadge(item)}
+        </span>
+
+        <h3>
+          ${escapeHTML(item.title || "Untitled")}
+        </h3>
+
+        <p>
+          ${formatDate(item.pubDate)}
+        </p>
+
+        <a
+          class="watch-link"
+          href="${escapeAttribute(url)}"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          WATCH →
+        </a>
+
       </div>
-    </article>`;
+
+    </article>
+  `;
 }
+
+
+/* =========================================================
+   RENDER YOUTUBE FEED
+   ========================================================= */
 
 function renderFeed(items) {
-  if (!items.length) throw new Error("No content");
+  const cleanItems = items
+    .filter(Boolean)
+    .map(normalizeApiItem)
+    .filter(item => item && (item.title || youtubeId(item)));
 
-  const latest = items[0];
+  if (!cleanItems.length) {
+    throw new Error("No YouTube content available");
+  }
+
+  /*
+    Remove duplicate videos.
+  */
+
+  const uniqueItems = [];
+  const seen = new Set();
+
+  cleanItems.forEach(item => {
+    const id =
+      youtubeId(item) ||
+      item.url ||
+      item.title;
+
+    if (seen.has(id)) return;
+
+    seen.add(id);
+    uniqueItems.push(item);
+  });
+
+  const latest = uniqueItems[0];
+
   const id = youtubeId(latest);
-  const thumb = latest.thumbnail || (id ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg` : "");
-  featuredThumb.innerHTML = thumb
-    ? `<img src="${escapeHTML(thumb)}" alt="${escapeHTML(latest.title || "Latest Hitman HQ content")}">`
-    : `<div class="thumb-placeholder">HQ</div>`;
-  featuredTitle.textContent = latest.title || "Latest Hitman HQ content";
-  featuredDate.textContent = formatDate(latest.pubDate);
-  featuredWatch.href = videoUrl(latest);
-  featuredBadge.textContent = contentBadge(latest);
 
-  contentGrid.innerHTML = items.slice(1, 4).map(renderCard).join("") ||
-    `<div class="loading-card">MORE CONTENT COMING SOON</div>`;
+  const thumb =
+    latest.thumbnail ||
+    (
+      id
+        ? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`
+        : ""
+    );
+
+  if (featuredThumb) {
+    featuredThumb.innerHTML = thumb
+      ? `
+        <img
+          src="${escapeAttribute(thumb)}"
+          alt="${escapeAttribute(
+            latest.title || "Latest Hitman HQ Gaming content"
+          )}"
+        >
+      `
+      : `
+        <div class="thumb-placeholder">
+          YOUTUBE
+        </div>
+      `;
+  }
+
+  if (featuredTitle) {
+    featuredTitle.textContent =
+      latest.title ||
+      "Latest Hitman HQ Gaming content";
+  }
+
+  if (featuredDate) {
+    featuredDate.textContent =
+      formatDate(latest.pubDate);
+  }
+
+  if (featuredWatch) {
+    featuredWatch.href =
+      videoUrl(latest);
+  }
+
+  if (featuredBadge) {
+    featuredBadge.textContent =
+      contentBadge(latest);
+  }
+
+  /*
+    Show the next three pieces of content.
+  */
+
+  const cards = uniqueItems
+    .slice(1, 4)
+    .map(renderCard)
+    .join("");
+
+  if (contentGrid) {
+    contentGrid.innerHTML =
+      cards ||
+      `
+        <div class="loading-card">
+          MORE CONTENT COMING SOON
+        </div>
+      `;
+  }
 }
+
+
+/* =========================================================
+   LIVE STATUS
+   ========================================================= */
 
 function renderLiveState(live) {
-  const active = live && live.is_live === true;
+  const active =
+    live &&
+    (
+      live.is_live === true ||
+      live.isLive === true ||
+      live.live_status === "live" ||
+      live.live_status === "LIVE"
+    );
+
   if (active) {
     const item = normalizeApiItem(live);
-    heroLiveBadge.hidden = false;
-    liveStatus.textContent = "LIVE NOW";
-    liveStatus.classList.add("live");
-    liveTitle.textContent = item.title || "Hitman HQ is live";
-    liveMessage.textContent = "Hitman HQ is currently live on YouTube.";
-    liveButton.href = item.url || CHANNEL_URL + "/live";
+
+    if (heroLiveBadge) {
+      heroLiveBadge.hidden = false;
+    }
+
+    if (liveStatus) {
+      liveStatus.textContent = "LIVE NOW";
+      liveStatus.classList.add("live");
+    }
+
+    if (liveTitle) {
+      liveTitle.textContent =
+        item.title ||
+        "Live on YouTube";
+    }
+
+    if (liveMessage) {
+      liveMessage.textContent =
+        "The channel is currently live.";
+    }
+
+    if (liveButton) {
+      liveButton.href =
+        item.url ||
+        `${CHANNEL_URL}/live`;
+    }
+
     return;
   }
-  heroLiveBadge.hidden = true;
-  liveStatus.textContent = "OFFLINE";
-  liveStatus.classList.remove("live");
-  liveTitle.textContent = "No live stream detected";
-  liveMessage.textContent = "Follow Hitman HQ on YouTube to catch the next stream.";
-  liveButton.href = CHANNEL_URL + "/live";
+
+  if (heroLiveBadge) {
+    heroLiveBadge.hidden = true;
+  }
+
+  if (liveStatus) {
+    liveStatus.textContent = "OFFLINE";
+    liveStatus.classList.remove("live");
+  }
+
+  if (liveTitle) {
+    liveTitle.textContent =
+      "No live stream detected";
+  }
+
+  if (liveMessage) {
+    liveMessage.textContent =
+      "Follow the channel to catch the next stream.";
+  }
+
+  if (liveButton) {
+    liveButton.href =
+      `${CHANNEL_URL}/live`;
+  }
 }
+
+
+/* =========================================================
+   FEATURED SHORT
+   ========================================================= */
 
 function renderFeaturedShort(item) {
-  const normalized = normalizeApiItem(item);
+  const normalized =
+    normalizeApiItem(item);
+
   if (!normalized) return;
-  const id = youtubeId(normalized);
-  if (id && featuredShortThumb) {
-    featuredShortThumb.src = normalized.thumbnail || `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
-    featuredShortThumb.alt = normalized.title || "Latest Hitman HQ YouTube Short";
+
+  const id =
+    youtubeId(normalized);
+
+  if (
+    id &&
+    featuredShortThumb
+  ) {
+    featuredShortThumb.src =
+      normalized.thumbnail ||
+      `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
+
+    featuredShortThumb.alt =
+      normalized.title ||
+      "Latest Hitman HQ YouTube Short";
   }
-  if (featuredShortTitle) featuredShortTitle.textContent = normalized.title || "Latest Hitman HQ Short";
-  if (featuredShortDescription) featuredShortDescription.textContent = `Latest Short • ${formatDate(normalized.pubDate)}`;
-  if (featuredShortWatch) featuredShortWatch.href = normalized.url || `https://www.youtube.com/shorts/${id}`;
+
+  if (featuredShortTitle) {
+    featuredShortTitle.textContent =
+      normalized.title ||
+      "Latest YouTube Short";
+  }
+
+  if (featuredShortDescription) {
+    const date =
+      formatDate(normalized.pubDate);
+
+    featuredShortDescription.textContent =
+      date
+        ? `Latest Short • ${date}`
+        : "Latest YouTube Short";
+  }
+
+  if (featuredShortWatch) {
+    featuredShortWatch.href =
+      normalized.url ||
+      (
+        id
+          ? `https://www.youtube.com/shorts/${id}`
+          : SHORTS_URL
+      );
+  }
 }
 
+
+/* =========================================================
+   API LOADER
+   ========================================================= */
+
 async function loadHQApi() {
-  const response = await fetch(`${HITMAN_HQ_API}?t=${Date.now()}`, { cache: "no-store" });
-  if (!response.ok) throw new Error("HITMAN HQ API unavailable");
-  const data = await response.json();
-  if (!data || data.status !== "online") throw new Error("HITMAN HQ API offline");
+  const response = await fetch(
+    `${HITMAN_HQ_API}?t=${Date.now()}`,
+    {
+      cache: "no-store",
+      headers: {
+        "Accept": "application/json"
+      }
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `API returned ${response.status}`
+    );
+  }
+
+  const data =
+    await response.json();
+
+  if (!data || typeof data !== "object") {
+    throw new Error(
+      "Invalid API response"
+    );
+  }
+
+  /*
+    IMPORTANT:
+    Do NOT require data.status === "online".
+
+    The old website rejected valid API responses
+    whenever the Worker returned another status value.
+  */
+
   return data;
 }
 
+
+/* =========================================================
+   EXTRACT CONTENT FROM API
+   ========================================================= */
+
+function extractApiItems(data) {
+  if (!data || typeof data !== "object") {
+    return [];
+  }
+
+  const items = [];
+
+  if (data.latest) {
+    items.push(data.latest);
+  }
+
+  if (Array.isArray(data.recent)) {
+    items.push(...data.recent);
+  }
+
+  if (Array.isArray(data.items)) {
+    items.push(...data.items);
+  }
+
+  if (Array.isArray(data.videos)) {
+    items.push(...data.videos);
+  }
+
+  if (Array.isArray(data.content)) {
+    items.push(...data.content);
+  }
+
+  return items
+    .map(normalizeApiItem)
+    .filter(Boolean);
+}
+
+
+/* =========================================================
+   LOAD YOUTUBE CONTENT
+   ========================================================= */
+
 async function loadYouTube() {
   try {
-    const data = await loadHQApi();
-    const latest = normalizeApiItem(data.latest);
-    if (!latest) throw new Error("No latest content");
-    renderFeed([latest, ...(Array.isArray(data.recent) ? data.recent.map(normalizeApiItem).filter(Boolean) : [])]);
-    renderLiveState(data.live);
-  } catch (_) {
-    featuredTitle.textContent = "Hitman HQ Gaming";
-    featuredDate.textContent = "Open YouTube for the latest content";
-    featuredThumb.innerHTML = `<div class="thumb-placeholder">YOUTUBE</div>`;
-    featuredWatch.href = CHANNEL_URL;
-    contentGrid.innerHTML = `
-      <div class="loading-card">OPEN YOUTUBE FOR LATEST CONTENT</div>
-      <div class="loading-card">OPEN YOUTUBE FOR LATEST CONTENT</div>
-      <div class="loading-card">OPEN YOUTUBE FOR LATEST CONTENT</div>`;
-    liveStatus.textContent = "CHECK YOUTUBE";
-    liveStatus.classList.remove("live");
-    liveTitle.textContent = "YouTube status unavailable";
-    liveMessage.textContent = "The channel is still available below while the public feed reconnects.";
-    liveButton.href = CHANNEL_URL;
+    const data =
+      await loadHQApi();
+
+    const items =
+      extractApiItems(data);
+
+    if (!items.length) {
+      throw new Error(
+        "API returned no YouTube content"
+      );
+    }
+
+    renderFeed(items);
+
+    renderLiveState(
+      data.live ||
+      data.liveStream ||
+      data.currentLive ||
+      null
+    );
+
+    document.documentElement
+      .setAttribute(
+        "data-youtube-status",
+        "online"
+      );
+
+  } catch (error) {
+
+    console.warn(
+      "YouTube feed unavailable:",
+      error
+    );
+
+    /*
+      Keep the website useful even if
+      the API is temporarily unavailable.
+    */
+
+    if (featuredTitle) {
+      featuredTitle.textContent =
+        "HITMAN HQ GAMING";
+    }
+
+    if (featuredDate) {
+      featuredDate.textContent =
+        "Latest content available on YouTube";
+    }
+
+    if (featuredThumb) {
+      featuredThumb.innerHTML = `
+        <div class="thumb-placeholder">
+          YOUTUBE
+        </div>
+      `;
+    }
+
+    if (featuredWatch) {
+      featuredWatch.href =
+        CHANNEL_URL;
+    }
+
+    if (contentGrid) {
+      contentGrid.innerHTML = `
+        <div class="loading-card">
+          YOUTUBE FEED TEMPORARILY UNAVAILABLE
+        </div>
+
+        <div class="loading-card">
+          OPEN CHANNEL
+        </div>
+      `;
+    }
+
+    renderLiveState(null);
+
+    document.documentElement
+      .setAttribute(
+        "data-youtube-status",
+        "offline"
+      );
   }
 }
+
+
+/* =========================================================
+   LOAD LATEST SHORT
+   ========================================================= */
 
 async function loadLatestShort() {
   try {
-    const data = await loadHQApi();
-    const latestShort = data.latest_short || (data.latest && isShort(data.latest) ? data.latest : null);
-    if (!latestShort) throw new Error("No Short found");
-    renderFeaturedShort(latestShort);
-  } catch (_) {
-    if (featuredShortTitle) featuredShortTitle.textContent = "LATEST YOUTUBE SHORT";
-    if (featuredShortDescription) featuredShortDescription.textContent = "Open the Shorts feed to see the latest Hitman HQ Short.";
-    if (featuredShortWatch) featuredShortWatch.href = "https://www.youtube.com/@HitmanHQGaming/shorts";
+    const data =
+      await loadHQApi();
+
+    let latestShort =
+      data.latest_short ||
+      data.latestShort ||
+      null;
+
+    /*
+      If API does not provide latest_short,
+      search the available content list.
+    */
+
+    if (!latestShort) {
+      const items =
+        extractApiItems(data);
+
+      latestShort =
+        items.find(isShort) ||
+        null;
+    }
+
+    if (!latestShort) {
+      throw new Error(
+        "No Short found"
+      );
+    }
+
+    renderFeaturedShort(
+      latestShort
+    );
+
+  } catch (error) {
+
+    console.warn(
+      "Latest Short unavailable:",
+      error
+    );
+
+    if (featuredShortTitle) {
+      featuredShortTitle.textContent =
+        "LATEST YOUTUBE SHORT";
+    }
+
+    if (featuredShortDescription) {
+      featuredShortDescription.textContent =
+        "Open the Shorts feed to see the latest content.";
+    }
+
+    if (featuredShortWatch) {
+      featuredShortWatch.href =
+        SHORTS_URL;
+    }
   }
 }
 
-const menuToggle = document.querySelector(".menu-toggle");
-const nav = document.querySelector(".nav-links");
-menuToggle.addEventListener("click", () => {
-  const open = nav.classList.toggle("open");
-  menuToggle.setAttribute("aria-expanded", String(open));
-});
-document.querySelectorAll(".nav-links a").forEach(a =>
-  a.addEventListener("click", () => nav.classList.remove("open"))
-);
 
-renderGames();
-loadYouTube();
-loadLatestShort();
+/* =========================================================
+   MOBILE NAVIGATION
+   ========================================================= */
 
-// HQ Easter egg: FIND → ACTIVATE → CLASSIFIED ACCESS → AGENT ACTIVATED.
+const menuToggle =
+  document.querySelector(".menu-toggle");
+
+const nav =
+  document.querySelector(".nav-links");
+
+if (menuToggle && nav) {
+
+  menuToggle.addEventListener(
+    "click",
+    () => {
+
+      const open =
+        nav.classList.toggle("open");
+
+      menuToggle.setAttribute(
+        "aria-expanded",
+        String(open)
+      );
+    }
+  );
+
+  document
+    .querySelectorAll(".nav-links a")
+    .forEach(link => {
+
+      link.addEventListener(
+        "click",
+        () => {
+          nav.classList.remove("open");
+
+          menuToggle.setAttribute(
+            "aria-expanded",
+            "false"
+          );
+        }
+      );
+
+    });
+}
+
+
+/* =========================================================
+   HQ EASTER EGG
+   FIND → ACTIVATE → CLASSIFIED ACCESS
+   ========================================================= */
+
 (() => {
-  const target = document.getElementById("hqSecretTarget");
+
+  const target =
+    document.getElementById(
+      "hqSecretTarget"
+    );
+
   if (!target) return;
+
   let clicks = 0;
   let timer;
-  target.addEventListener("click", () => {
-    clicks += 1;
-    clearTimeout(timer);
-    timer = setTimeout(() => { clicks = 0; }, 1800);
-    if (clicks < 3) return;
-    clicks = 0;
 
-    const overlay = document.createElement("div");
-    overlay.className = "agent-easter-egg";
-    overlay.innerHTML = `<div class="agent-easter-box">
-      <div class="agent-easter-target"></div>
-      <div class="agent-easter-kicker">HITMAN HEADQUARTERS // CLASSIFIED</div>
-      <div class="agent-easter-title">ACCESS GRANTED</div>
-      <div class="agent-easter-copy" id="agentEasterCopy">Verifying clearance...</div>
-      <div class="agent-easter-status" id="agentEasterStatus">INITIALIZING AGENT PROTOCOL</div>
-    </div>`;
-    document.body.appendChild(overlay);
+  target.addEventListener(
+    "click",
+    () => {
 
-    const copy = overlay.querySelector("#agentEasterCopy");
-    const status = overlay.querySelector("#agentEasterStatus");
-    const steps = [
-      ["IDENTITY: UNKNOWN", "SECURITY CHECK COMPLETE"],
-      ["IDENTITY: VERIFIED", "CLEARANCE: RECRUIT"],
-      ["AGENT STATUS: ACTIVATED", "MISSION PROTOCOL ONLINE"],
-      ["AGENT, YOU HAVE BEEN SELECTED.", "MISSION: PLAY. HUNT. CONQUER."],
-      ["OBJECTIVE: ENTER THE HEADQUARTERS.", "STATUS: MISSION ACTIVE"],
-      ["🏆 ACHIEVEMENT UNLOCKED — YOU FOUND THE HQ SECRET", "WELCOME TO HITMAN HEADQUARTERS"]
-    ];
-    let i = 0;
-    const show = () => {
-      const [a,b] = steps[i];
-      copy.textContent = a;
-      status.textContent = b;
-      i += 1;
-      if (i < steps.length) setTimeout(show, 950);
-    };
-    show();
-    setTimeout(() => overlay.remove(), 6200);
-  });
+      clicks += 1;
+
+      clearTimeout(timer);
+
+      timer = setTimeout(
+        () => {
+          clicks = 0;
+        },
+        1800
+      );
+
+      if (clicks < 3) {
+        return;
+      }
+
+      clicks = 0;
+
+      const overlay =
+        document.createElement("div");
+
+      overlay.className =
+        "agent-easter-egg";
+
+      overlay.innerHTML = `
+        <div class="agent-easter-box">
+
+          <div class="agent-easter-target"></div>
+
+          <div class="agent-easter-kicker">
+            HITMAN HEADQUARTERS // CLASSIFIED
+          </div>
+
+          <div class="agent-easter-title">
+            ACCESS GRANTED
+          </div>
+
+          <div
+            class="agent-easter-copy"
+            id="agentEasterCopy"
+          >
+            Verifying clearance...
+          </div>
+
+          <div
+            class="agent-easter-status"
+            id="agentEasterStatus"
+          >
+            INITIALIZING AGENT PROTOCOL
+          </div>
+
+        </div>
+      `;
+
+      document.body.appendChild(
+        overlay
+      );
+
+      const copy =
+        overlay.querySelector(
+          "#agentEasterCopy"
+        );
+
+      const status =
+        overlay.querySelector(
+          "#agentEasterStatus"
+        );
+
+      const steps = [
+
+        [
+          "IDENTITY: UNKNOWN",
+          "SECURITY CHECK COMPLETE"
+        ],
+
+        [
+          "IDENTITY: VERIFIED",
+          "CLEARANCE: RECRUIT"
+        ],
+
+        [
+          "AGENT STATUS: ACTIVATED",
+          "MISSION PROTOCOL ONLINE"
+        ],
+
+        [
+          "AGENT, YOU HAVE BEEN SELECTED.",
+          "MISSION: PLAY. HUNT. CONQUER."
+        ],
+
+        [
+          "OBJECTIVE: ENTER THE HEADQUARTERS.",
+          "STATUS: MISSION ACTIVE"
+        ],
+
+        [
+          "🏆 ACHIEVEMENT UNLOCKED — YOU FOUND THE HQ SECRET",
+          "WELCOME TO HITMAN HEADQUARTERS"
+        ]
+
+      ];
+
+      let i = 0;
+
+      const show = () => {
+
+        const [a, b] =
+          steps[i];
+
+        if (copy) {
+          copy.textContent = a;
+        }
+
+        if (status) {
+          status.textContent = b;
+        }
+
+        i += 1;
+
+        if (i < steps.length) {
+          setTimeout(
+            show,
+            950
+          );
+        }
+      };
+
+      show();
+
+      setTimeout(
+        () => overlay.remove(),
+        6200
+      );
+
+    }
+  );
+
 })();
 
-// Copy the primary UPI ID without exposing the user's email address.
-document.querySelectorAll(".support-copy-btn").forEach(button => {
-  button.addEventListener("click", async () => {
-    const value = button.dataset.copy || "";
-    try {
-      await navigator.clipboard.writeText(value);
-      const old = button.textContent;
-      button.textContent = "COPIED ✓";
-      setTimeout(() => button.textContent = old, 1400);
-    } catch (_) {
-      window.prompt("Copy UPI ID:", value);
-    }
+
+/* =========================================================
+   SUPPORT / UPI COPY
+   ========================================================= */
+
+document
+  .querySelectorAll(".support-copy-btn")
+  .forEach(button => {
+
+    button.addEventListener(
+      "click",
+      async () => {
+
+        const value =
+          button.dataset.copy || "";
+
+        try {
+
+          await navigator
+            .clipboard
+            .writeText(value);
+
+          const old =
+            button.textContent;
+
+          button.textContent =
+            "COPIED ✓";
+
+          setTimeout(
+            () => {
+              button.textContent =
+                old;
+            },
+            1400
+          );
+
+        } catch (_) {
+
+          window.prompt(
+            "Copy UPI ID:",
+            value
+          );
+
+        }
+
+      }
+    );
+
   });
-});
+
+
+/* =========================================================
+   INITIALIZE WEBSITE
+   ========================================================= */
+
+renderGames();
+
+loadYouTube();
+
+loadLatestShort();
