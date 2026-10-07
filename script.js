@@ -1,53 +1,37 @@
-```javascript
 /* =========================================================
-   HITMAN HQ GAMING — MAIN SITE SCRIPT
-   ========================================================= */
+   HITMAN HEADQUARTERS
+   MAIN SITE SCRIPT
+========================================================= */
 
 
 /* =========================================================
    GAME DATABASE
-   =========================================================
-   EDIT ONLY THIS SECTION WHEN YOU WANT TO CHANGE GAMES.
-   ========================================================= */
+========================================================= */
 
 const HQ_GAMES = {
-
-  /* =======================================================
-     CURRENTLY PLAYING
-  ======================================================= */
 
   currentlyPlaying: {
     name: "RESIDENT EVIL REQUIEM",
     genre: "Horror • Survival",
-    label: "CURRENT OPERATION",
+    label: "CURRENTLY PLAYING",
     url: "https://www.residentevil.com/requiem/",
-    art: "https://image.api.playstation.com/vulcan/ap/rnd/202509/3015/2f6e2d5c4f9d3f9f1c0a7a7f0e5f1c4d7e4f1f1e.png"
+    art: "https://cdn.akamai.steamstatic.com/steam/apps/3764200/header.jpg"
   },
-
-
-  /* =======================================================
-     UP NEXT
-  ======================================================= */
 
   upNext: {
     name: "SEKIRO: SHADOWS DIE TWICE",
     genre: "Action • Soulslike",
-    label: "NEXT OPERATION",
-    url: "https://www.sekirothegame.com/",
+    label: "UP NEXT",
+    url: "https://store.steampowered.com/app/814380/Sekiro_Shadows_Die_Twice/",
     art: "https://cdn.akamai.steamstatic.com/steam/apps/814380/header.jpg"
   },
-
-
-  /* =======================================================
-     PLAYED ON STREAM
-  ======================================================= */
 
   playedOnStream: [
 
     {
       name: "RESIDENT EVIL VILLAGE",
       genre: "Horror • Survival",
-      label: "RESIDENT EVIL",
+      label: "PLAYED",
       url: "https://www.residentevil.com/village/",
       art: "https://cdn.akamai.steamstatic.com/steam/apps/1196590/header.jpg"
     },
@@ -55,15 +39,15 @@ const HQ_GAMES = {
     {
       name: "GOD OF WAR",
       genre: "Action • Adventure",
-      label: "GOD OF WAR",
+      label: "PLAYED",
       url: "https://www.playstation.com/en-in/games/god-of-war/",
-      art: "https://cdn1.epicgames.com/offer/3ddd6a590da64e3686042d108968a6b2/EGS_GodofWar_SantaMonicaStudio_S2_1200x1600-fbdf3cbc2980749091d52751ffabb7b7_1200x1600"
+      art: "https://cdn.akamai.steamstatic.com/steam/apps/159350/header.jpg"
     },
 
     {
       name: "BGMI",
       genre: "Battle Royale • Shooter",
-      label: "BGMI",
+      label: "PLAYED",
       url: "https://www.battlegroundsmobileindia.com/",
       art: "https://akm-img-a-in.tosshub.com/sites/itgaming/resources/202412/unnamed271224011520.png?size=1200%3A675"
     },
@@ -71,7 +55,7 @@ const HQ_GAMES = {
     {
       name: "ROBLOX",
       genre: "Adventure • Multiplayer",
-      label: "ROBLOX",
+      label: "PLAYED",
       url: "https://www.roblox.com/",
       art: "https://cms-media.roblox.com/assets/93732cb0-db70-1bdc-923c-f7526dc7086c.webp"
     },
@@ -79,17 +63,17 @@ const HQ_GAMES = {
     {
       name: "GOD OF WAR",
       genre: "Action • Adventure",
-      label: "GOD OF WAR (2005)",
-      url: "https://www.playstation.com/en-us/games/god-of-war/",
-      art: "https://upload.wikimedia.org/wikipedia/en/7/7b/God_of_War_2005_cover.jpg"
+      label: "2005",
+      url: "https://www.playstation.com/",
+      art: "https://cdn.akamai.steamstatic.com/steam/apps/159350/header.jpg"
     },
 
     {
       name: "GOD OF WAR: ASCENSION",
       genre: "Action • Adventure",
       label: "ASCENSION",
-      url: "https://www.playstation.com/en-us/games/god-of-war-ascension/",
-      art: "https://upload.wikimedia.org/wikipedia/en/3/34/God_of_War_-_Ascension_cover.jpg"
+      url: "https://www.playstation.com/",
+      art: "https://images.igdb.com/igdb/image/upload/t_original/co1r7f.jpg"
     },
 
     {
@@ -97,15 +81,15 @@ const HQ_GAMES = {
       genre: "Action • Adventure",
       label: "CHAINS OF OLYMPUS",
       url: "https://www.playstation.com/",
-      art: "https://upload.wikimedia.org/wikipedia/en/4/47/God_of_War_-_Chains_of_Olympus_cover.jpg"
+      art: "https://images.igdb.com/igdb/image/upload/t_original/co2m1x.jpg"
     },
 
     {
       name: "007: FIRST LIGHT",
-      genre: "Action • Stealth",
-      label: "007: FIRST LIGHT",
-      url: "https://www.007firstlight.com/",
-      art: "https://image.api.playstation.com/vulcan/ap/rnd/202506/0410/007-first-light.png"
+      genre: "Action • Adventure",
+      label: "FIRST LIGHT",
+      url: "https://www.007.com/",
+      art: "https://cdn.akamai.steamstatic.com/steam/apps/3764200/header.jpg"
     }
 
   ]
@@ -114,8 +98,8 @@ const HQ_GAMES = {
 
 
 /* =========================================================
-   GENERAL HELPERS
-   ========================================================= */
+   HELPERS
+========================================================= */
 
 function escapeHTML(value = "") {
 
@@ -133,585 +117,264 @@ function escapeHTML(value = "") {
 }
 
 
-function escapeAttribute(value = "") {
-
-  return escapeHTML(value)
-    .replace(/`/g, "&#096;");
-
-}
-
-
-function gameArtwork(game) {
-
-  return String(
-    game?.art || ""
-  )
-    .replace(/'/g, "%27")
-    .trim();
-
-}
-
-
 /* =========================================================
    GAME IMAGE FALLBACK
-   ========================================================= */
+========================================================= */
 
-function createGameArtFallback(element, game) {
+function gameFallback(element) {
 
   if (!element) return;
 
-  element.classList.add(
-    "game-art-fallback"
-  );
-
-  /*
-    Remove broken background image.
-  */
+  element.classList.add("game-art-fallback");
 
   element.style.backgroundImage =
-    "linear-gradient(135deg, #111 0%, #050505 100%)";
-
-
-  /*
-    Add fallback game name.
-  */
-
-  const existing =
-    element.querySelector(
-      ".game-art-fallback-text"
-    );
-
-  if (!existing) {
-
-    const fallback =
-      document.createElement("div");
-
-    fallback.className =
-      "game-art-fallback-text";
-
-    fallback.textContent =
-      game?.name || "GAME";
-
-    element.prepend(
-      fallback
-    );
-
-  }
-
-}
-
-
-function attachGameImageFallback(element, game) {
-
-  if (!element) return;
-
-  const art =
-    gameArtwork(game);
-
-  if (!art) {
-
-    createGameArtFallback(
-      element,
-      game
-    );
-
-    return;
-
-  }
-
-  const image =
-    new Image();
-
-  image.onload = () => {
-
-    element.style.backgroundImage =
-      element.dataset.originalBackground ||
-      element.style.backgroundImage;
-
-  };
-
-  image.onerror = () => {
-
-    createGameArtFallback(
-      element,
-      game
-    );
-
-  };
-
-  image.src = art;
+    "linear-gradient(135deg,#111,#050505)";
 
 }
 
 
 /* =========================================================
-   CURRENTLY PLAYING
-   ========================================================= */
+   FEATURED GAME
+========================================================= */
 
-function renderCurrentlyPlaying() {
+function renderFeaturedGame(game, type) {
 
-  const card =
-    document.getElementById(
-      "currentlyPlayingCard"
-    );
+  if (!game) return "";
 
-  if (!card) return;
+  const name = escapeHTML(game.name);
+  const genre = escapeHTML(game.genre);
+  const label = escapeHTML(game.label || game.name);
+  const url = escapeHTML(game.url);
+  const art = escapeHTML(game.art || "");
 
-  const game =
-    HQ_GAMES.currentlyPlaying;
+  const status =
+    type === "current"
+      ? "CURRENT"
+      : "NEXT";
 
-
-  if (!game) {
-
-    card.innerHTML = `
-      <div class="game-feature-empty">
-        CURRENTLY PLAYING
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  const name =
-    escapeHTML(game.name);
-
-  const genre =
-    escapeHTML(game.genre);
-
-  const label =
-    escapeHTML(
-      game.label ||
-      "CURRENT OPERATION"
-    );
-
-  const url =
-    escapeAttribute(
-      game.url ||
-      "#"
-    );
-
-  const art =
-    gameArtwork(game);
-
-
-  card.innerHTML = `
-
+  return `
     <a
       class="game-feature-link"
       href="${url}"
       target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Open ${name}"
+      rel="noopener"
+      aria-label="${name}"
     >
 
       <div
         class="game-feature-art"
-        data-game-art="${escapeAttribute(art)}"
         style="
           background-image:
-            linear-gradient(
-              90deg,
-              rgba(0,0,0,.90) 0%,
-              rgba(0,0,0,.55) 48%,
-              rgba(0,0,0,.15) 100%
-            ),
-            linear-gradient(
-              180deg,
-              rgba(0,0,0,.08) 35%,
-              rgba(0,0,0,.82) 100%
-            ),
-            url('${art}');
+          linear-gradient(
+            180deg,
+            rgba(0,0,0,.05) 0%,
+            rgba(0,0,0,.28) 45%,
+            rgba(0,0,0,.94) 100%
+          ),
+          url('${art}');
         "
       >
 
-        <div class="game-feature-content">
+        <span class="game-feature-status">
+          ${status}
+        </span>
 
-          <span
-            class="game-feature-status current-status">
+        <span class="game-scan-line"></span>
 
-            <span
-              class="game-feature-status-dot">
-            </span>
-
-            ${label}
-
-          </span>
-
-
-          <div class="game-feature-index">
-            01 // ACTIVE TITLE
-          </div>
-
-
-          <h3>
-            ${name}
-          </h3>
-
-
-          <p>
-            ${genre}
-          </p>
-
-
-          <span class="game-feature-action">
-            VIEW GAME
-            <span>→</span>
-          </span>
-
+        <div class="game-feature-art-fallback">
+          ${name}
         </div>
 
       </div>
 
+
+      <div class="game-feature-content">
+
+        <div class="game-feature-meta">
+          ${label}
+        </div>
+
+        <h3>
+          ${name}
+        </h3>
+
+        <p>
+          ${genre}
+        </p>
+
+        <span class="game-feature-link">
+          VIEW GAME ↗
+        </span>
+
+      </div>
+
     </a>
-
   `;
-
-
-  const artElement =
-    card.querySelector(
-      ".game-feature-art"
-    );
-
-  attachGameImageFallback(
-    artElement,
-    game
-  );
 
 }
 
 
 /* =========================================================
-   UP NEXT
-   ========================================================= */
+   PLAYED GAME CARD
+========================================================= */
 
-function renderUpNext() {
+function renderPlayedGame(game) {
 
-  const card =
-    document.getElementById(
-      "upNextCard"
-    );
+  const name = escapeHTML(game.name);
+  const genre = escapeHTML(game.genre);
+  const label = escapeHTML(game.label || "PLAYED");
+  const url = escapeHTML(game.url);
+  const art = escapeHTML(game.art || "");
 
-  if (!card) return;
-
-  const game =
-    HQ_GAMES.upNext;
-
-
-  if (!game) {
-
-    card.innerHTML = `
-      <div class="game-feature-empty">
-        UP NEXT
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  const name =
-    escapeHTML(game.name);
-
-  const genre =
-    escapeHTML(game.genre);
-
-  const label =
-    escapeHTML(
-      game.label ||
-      "NEXT OPERATION"
-    );
-
-  const url =
-    escapeAttribute(
-      game.url ||
-      "#"
-    );
-
-  const art =
-    gameArtwork(game);
-
-
-  card.innerHTML = `
-
+  return `
     <a
-      class="game-feature-link"
+      class="game-compact-card"
       href="${url}"
       target="_blank"
-      rel="noopener noreferrer"
-      aria-label="Open ${name}"
+      rel="noopener"
+      aria-label="${name}"
     >
 
       <div
-        class="game-feature-art"
-        data-game-art="${escapeAttribute(art)}"
+        class="game-compact-art"
         style="
           background-image:
-            linear-gradient(
-              90deg,
-              rgba(0,0,0,.88) 0%,
-              rgba(0,0,0,.50) 48%,
-              rgba(0,0,0,.15) 100%
-            ),
-            linear-gradient(
-              180deg,
-              rgba(0,0,0,.08) 35%,
-              rgba(0,0,0,.82) 100%
-            ),
-            url('${art}');
+          linear-gradient(
+            180deg,
+            rgba(0,0,0,.04),
+            rgba(0,0,0,.88)
+          ),
+          url('${art}');
         "
       >
 
-        <div class="game-feature-content">
+        <span class="game-compact-label">
+          ${label}
+        </span>
 
-          <span
-            class="game-feature-status next-status">
+        <span class="game-scan-line"></span>
 
-            <span
-              class="game-feature-status-dot">
-            </span>
-
-            ${label}
-
-          </span>
+      </div>
 
 
-          <div class="game-feature-index">
-            02 // NEXT OPERATION
-          </div>
+      <div class="game-compact-content">
 
+        <h3>
+          ${name}
+        </h3>
 
-          <h3>
-            ${name}
-          </h3>
+        <p>
+          ${genre}
+        </p>
 
-
-          <p>
-            ${genre}
-          </p>
-
-
-          <span class="game-feature-action">
-            VIEW GAME
-            <span>→</span>
-          </span>
-
-        </div>
+        <span class="game-compact-arrow">
+          ↗
+        </span>
 
       </div>
 
     </a>
-
   `;
-
-
-  const artElement =
-    card.querySelector(
-      ".game-feature-art"
-    );
-
-  attachGameImageFallback(
-    artElement,
-    game
-  );
-
-}
-
-
-/* =========================================================
-   PLAYED ON STREAM
-   ========================================================= */
-
-function renderPlayedGames() {
-
-  const grid =
-    document.getElementById(
-      "playedGamesGrid"
-    );
-
-  if (!grid) return;
-
-
-  const games =
-    Array.isArray(
-      HQ_GAMES.playedOnStream
-    )
-      ? HQ_GAMES.playedOnStream
-      : [];
-
-
-  if (!games.length) {
-
-    grid.innerHTML = `
-      <div class="loading-card">
-        NO ARCHIVED GAMES
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  grid.innerHTML =
-    games.map(
-      (game, index) => {
-
-        const name =
-          escapeHTML(
-            game.name
-          );
-
-        const genre =
-          escapeHTML(
-            game.genre
-          );
-
-        const label =
-          escapeHTML(
-            game.label ||
-            game.name
-          );
-
-        const url =
-          escapeAttribute(
-            game.url ||
-            "#"
-          );
-
-        const art =
-          gameArtwork(game);
-
-
-        return `
-
-          <a
-            class="game-compact-card"
-            href="${url}"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Open ${name}"
-          >
-
-            <div
-              class="game-compact-art"
-              data-game-art="${escapeAttribute(art)}"
-              style="
-                background-image:
-                  linear-gradient(
-                    180deg,
-                    rgba(0,0,0,.05),
-                    rgba(0,0,0,.78)
-                  ),
-                  url('${art}');
-              "
-            >
-
-              <span class="game-compact-number">
-                ${String(index + 1).padStart(2, "0")}
-              </span>
-
-
-              <span class="game-compact-label">
-                ${label}
-              </span>
-
-            </div>
-
-
-            <div class="game-compact-info">
-
-              <h3>
-                ${name}
-              </h3>
-
-              <p>
-                ${genre}
-              </p>
-
-            </div>
-
-
-            <span class="game-compact-arrow">
-              →
-            </span>
-
-          </a>
-
-        `;
-
-      }
-    ).join("");
-
-
-  /*
-    Attach image fallback to every archive card.
-  */
-
-  grid
-    .querySelectorAll(
-      ".game-compact-art"
-    )
-    .forEach(
-      (element, index) => {
-
-        attachGameImageFallback(
-          element,
-          games[index]
-        );
-
-      }
-    );
 
 }
 
 
 /* =========================================================
    RENDER ALL GAMES
-   ========================================================= */
+========================================================= */
 
 function renderGames() {
 
-  renderCurrentlyPlaying();
+  const currentCard =
+    document.getElementById("currentlyPlayingCard");
 
-  renderUpNext();
+  const nextCard =
+    document.getElementById("upNextCard");
 
-  renderPlayedGames();
+  const playedGrid =
+    document.getElementById("playedGamesGrid");
 
-}
+  const archiveCount =
+    document.getElementById("archiveCount");
 
 
-/* =========================================================
-   GAME ARCHIVE
-   ========================================================= */
+  if (currentCard) {
 
-function setupGameArchive() {
+    currentCard.innerHTML =
+      renderFeaturedGame(
+        HQ_GAMES.currentlyPlaying,
+        "current"
+      );
 
-  const archive =
-    document.querySelector(
-      ".games-archive"
-    );
+  }
 
-  if (!archive) return;
+
+  if (nextCard) {
+
+    nextCard.innerHTML =
+      renderFeaturedGame(
+        HQ_GAMES.upNext,
+        "next"
+      );
+
+  }
+
+
+  if (playedGrid) {
+
+    playedGrid.innerHTML =
+      HQ_GAMES.playedOnStream
+        .map(renderPlayedGame)
+        .join("");
+
+  }
+
+
+  if (archiveCount) {
+
+    archiveCount.textContent =
+      `${String(HQ_GAMES.playedOnStream.length).padStart(2, "0")} TITLES`;
+
+  }
 
 
   /*
-    Archive is intentionally closed
-    when the page first loads.
+    If an external artwork fails, keep the card visible.
   */
 
-  archive.removeAttribute(
-    "open"
-  );
+  document
+    .querySelectorAll(
+      ".game-feature-art, .game-compact-art"
+    )
+    .forEach(element => {
+
+      const image =
+        new Image();
+
+      const background =
+        element.style.backgroundImage;
+
+      const match =
+        background.match(
+          /url\(['"]?(.*?)['"]?\)/
+        );
+
+      if (!match || !match[1]) return;
+
+      image.onerror = () => {
+        gameFallback(element);
+      };
+
+      image.src = match[1];
+
+    });
 
 }
 
 
 /* =========================================================
-   YOUTUBE CONFIG
-   ========================================================= */
+   YOUTUBE / API
+========================================================= */
 
 const CHANNEL_ID =
   "UCClntt9HBQirLO6m0klTY4g";
@@ -719,123 +382,68 @@ const CHANNEL_ID =
 const CHANNEL_URL =
   "https://www.youtube.com/@HitmanHQGaming";
 
-const SHORTS_URL =
-  "https://www.youtube.com/@HitmanHQGaming/shorts";
-
-
 const HITMAN_HQ_API =
   "https://hitman-hq-api.uikeyshiva14.workers.dev";
 
 
-/* =========================================================
-   DOM REFERENCES
-   ========================================================= */
-
 const heroLiveBadge =
-  document.getElementById(
-    "heroLiveBadge"
-  );
-
+  document.getElementById("heroLiveBadge");
 
 const featuredThumb =
-  document.getElementById(
-    "featuredThumb"
-  );
+  document.getElementById("featuredThumb");
 
 const featuredTitle =
-  document.getElementById(
-    "featuredTitle"
-  );
+  document.getElementById("featuredTitle");
 
 const featuredDate =
-  document.getElementById(
-    "featuredDate"
-  );
+  document.getElementById("featuredDate");
 
 const featuredWatch =
-  document.getElementById(
-    "featuredWatch"
-  );
+  document.getElementById("featuredWatch");
 
 const featuredBadge =
-  document.getElementById(
-    "featuredBadge"
-  );
-
+  document.getElementById("featuredBadge");
 
 const contentGrid =
-  document.getElementById(
-    "contentGrid"
-  );
-
+  document.getElementById("contentGrid");
 
 const liveStatus =
-  document.getElementById(
-    "liveStatus"
-  );
+  document.getElementById("liveStatus");
 
 const liveTitle =
-  document.getElementById(
-    "liveTitle"
-  );
+  document.getElementById("liveTitle");
 
 const liveMessage =
-  document.getElementById(
-    "liveMessage"
-  );
+  document.getElementById("liveMessage");
 
 const liveButton =
-  document.getElementById(
-    "liveButton"
-  );
-
+  document.getElementById("liveButton");
 
 const featuredShortThumb =
-  document.getElementById(
-    "featuredShortThumb"
-  );
+  document.getElementById("featuredShortThumb");
 
 const featuredShortTitle =
-  document.getElementById(
-    "featuredShortTitle"
-  );
+  document.getElementById("featuredShortTitle");
 
 const featuredShortDescription =
-  document.getElementById(
-    "featuredShortDescription"
-  );
+  document.getElementById("featuredShortDescription");
 
 const featuredShortWatch =
-  document.getElementById(
-    "featuredShortWatch"
-  );
+  document.getElementById("featuredShortWatch");
 
 
 /* =========================================================
-   YOUTUBE DATE
-   ========================================================= */
+   YOUTUBE HELPERS
+========================================================= */
 
-function formatDate(
-  dateString
-) {
-
-  if (!dateString) {
-    return "";
-  }
-
+function formatDate(dateString) {
 
   const date =
     new Date(dateString);
 
-
-  if (
-    Number.isNaN(
-      date.getTime()
-    )
-  ) {
+  if (Number.isNaN(date.getTime())) {
     return "";
   }
-
 
   return date.toLocaleDateString(
     "en-IN",
@@ -849,28 +457,19 @@ function formatDate(
 }
 
 
-/* =========================================================
-   YOUTUBE VIDEO ID
-   ========================================================= */
-
 function youtubeId(item = {}) {
 
   if (item.videoId) {
     return item.videoId;
   }
 
-
   if (item.video_id) {
     return item.video_id;
   }
 
-
   if (
     item.guid &&
-    typeof item.guid === "string" &&
-    item.guid.includes(
-      "yt:video:"
-    )
+    item.guid.includes("yt:video:")
   ) {
 
     return item.guid
@@ -879,38 +478,31 @@ function youtubeId(item = {}) {
 
   }
 
-
   const link =
     item.link ||
     item.url ||
     "";
 
-
   if (!link) {
     return "";
   }
-
 
   try {
 
     const url =
       new URL(link);
 
-
-    const videoParameter =
+    const queryId =
       url.searchParams.get("v");
 
-
-    if (videoParameter) {
-      return videoParameter;
+    if (queryId) {
+      return queryId;
     }
-
 
     const match =
       url.pathname.match(
-        /\/(?:shorts|live|embed)\/([A-Za-z0-9_-]{6,})/
+        /\/(?:shorts|live)\/([A-Za-z0-9_-]{6,})/
       );
-
 
     if (match) {
       return match[1];
@@ -918,231 +510,167 @@ function youtubeId(item = {}) {
 
   } catch (_) {}
 
-
   return "";
 
 }
 
-
-/* =========================================================
-   YOUTUBE VIDEO URL
-   ========================================================= */
 
 function videoUrl(item = {}) {
 
   const id =
     youtubeId(item);
 
-
   if (
     item.url &&
-    /youtube\.com\/shorts\//i.test(
-      item.url
-    )
+    /youtube\.com\/shorts\//i.test(item.url)
   ) {
-    return item.url;
-  }
 
+    return item.url;
+
+  }
 
   if (item.url) {
     return item.url;
   }
 
-
-  if (item.link) {
-    return item.link;
-  }
-
-
-  if (id) {
-
-    return (
-      `https://www.youtube.com/watch?v=${id}`
-    );
-
-  }
-
-
-  return CHANNEL_URL;
+  return id
+    ? `https://www.youtube.com/watch?v=${id}`
+    : (item.link || CHANNEL_URL);
 
 }
 
 
 /* =========================================================
-   NORMALIZE API ITEM
-   ========================================================= */
+   API NORMALIZATION
+========================================================= */
 
-function normalizeApiItem(
-  item
-) {
+function normalizeApiItem(item) {
 
   if (!item) {
     return null;
   }
 
-
-  const id =
-    item.video_id ||
-    item.videoId ||
-    youtubeId(item);
-
-
   return {
 
-    video_id: id,
+    video_id:
+      item.video_id ||
+      item.videoId ||
+      youtubeId(item),
 
-    videoId: id,
-
+    videoId:
+      item.video_id ||
+      item.videoId ||
+      youtubeId(item),
 
     title:
       item.title ||
-      item.name ||
       "",
-
 
     url:
       item.url ||
       item.link ||
-      (
-        id
-          ? `https://www.youtube.com/watch?v=${id}`
-          : CHANNEL_URL
-      ),
-
+      CHANNEL_URL,
 
     link:
       item.url ||
       item.link ||
-      (
-        id
-          ? `https://www.youtube.com/watch?v=${id}`
-          : CHANNEL_URL
-      ),
-
+      CHANNEL_URL,
 
     thumbnail:
       item.thumbnail ||
-      item.thumb ||
-      item.image ||
       "",
-
 
     published_at:
       item.published_at ||
-      item.publishedAt ||
       item.pubDate ||
-      item.date ||
       "",
-
 
     pubDate:
       item.published_at ||
-      item.publishedAt ||
       item.pubDate ||
-      item.date ||
       "",
-
 
     content_type:
       item.content_type ||
-      item.contentType ||
-      item.type ||
-      "YouTube",
-
-
-    is_live:
-      item.is_live === true ||
-      item.isLive === true,
-
-
-    live_status:
-      item.live_status ||
-      item.liveStatus ||
-      ""
+      "YouTube"
 
   };
 
 }
 
 
-/* =========================================================
-   CONTENT TYPE
-   ========================================================= */
-
-function isShort(
-  item = {}
-) {
-
-  const title =
-    item.title ||
-    "";
-
-  const url =
-    item.url ||
-    item.link ||
-    "";
-
+function isShort(item = {}) {
 
   return (
     /(?:#shorts\b|\bshorts\b)/i.test(
-      title
-    ) ||
+      item.title || ""
+    )
+    ||
     /youtube\.com\/shorts\//i.test(
-      url
+      item.url ||
+      item.link ||
+      ""
     )
   );
 
 }
 
 
-function isLive(
-  item = {}
-) {
+function isLive(item = {}) {
 
   if (!item) {
     return false;
   }
 
+  if (
+    item.is_live === true ||
+    item.live_status === "live"
+  ) {
+
+    return true;
+
+  }
+
+  const title =
+    (item.title || "")
+      .toLowerCase();
 
   return (
-    item.is_live === true ||
-    item.live_status === "live" ||
-    item.live_status === "LIVE"
+    /\b(live|stream)\b/.test(title)
+    &&
+    item.pubDate
+    &&
+    (
+      Date.now() -
+      new Date(item.pubDate).getTime()
+    ) <
+      1000 * 60 * 60 * 24
   );
 
 }
 
 
-function contentBadge(
-  item
-) {
+function contentBadge(item) {
 
   if (isLive(item)) {
     return "LIVE";
   }
 
-
-  if (isShort(item)) {
-    return "SHORTS";
-  }
-
-
-  return "YOUTUBE";
+  return isShort(item)
+    ? "SHORTS"
+    : "YOUTUBE";
 
 }
 
 
 /* =========================================================
    CONTENT CARD
-   ========================================================= */
+========================================================= */
 
-function renderCard(
-  item
-) {
+function renderCard(item) {
 
   const id =
     youtubeId(item);
-
 
   const thumb =
     item.thumbnail ||
@@ -1152,27 +680,24 @@ function renderCard(
         : ""
     );
 
-
   const url =
     videoUrl(item);
 
-
   return `
-
     <article class="content-card">
 
       <a
         class="thumb"
-        href="${escapeAttribute(url)}"
+        href="${escapeHTML(url)}"
         target="_blank"
-        rel="noopener noreferrer"
+        rel="noopener"
       >
 
         ${
           thumb
             ? `
               <img
-                src="${escapeAttribute(thumb)}"
+                src="${escapeHTML(thumb)}"
                 alt=""
                 loading="lazy"
               >
@@ -1193,7 +718,6 @@ function renderCard(
           ${contentBadge(item)}
         </span>
 
-
         <h3>
           ${escapeHTML(
             item.title ||
@@ -1201,19 +725,15 @@ function renderCard(
           )}
         </h3>
 
-
         <p>
-          ${formatDate(
-            item.pubDate
-          )}
+          ${formatDate(item.pubDate)}
         </p>
-
 
         <a
           class="watch-link"
-          href="${escapeAttribute(url)}"
+          href="${escapeHTML(url)}"
           target="_blank"
-          rel="noopener noreferrer"
+          rel="noopener"
         >
           WATCH →
         </a>
@@ -1221,7 +741,6 @@ function renderCard(
       </div>
 
     </article>
-
   `;
 
 }
@@ -1229,76 +748,19 @@ function renderCard(
 
 /* =========================================================
    RENDER YOUTUBE FEED
-   ========================================================= */
+========================================================= */
 
-function renderFeed(
-  items
-) {
+function renderFeed(items) {
 
-  const cleanItems =
-    items
-      .filter(Boolean)
-      .map(normalizeApiItem)
-      .filter(
-        item =>
-          item &&
-          (
-            item.title ||
-            youtubeId(item)
-          )
-      );
-
-
-  if (!cleanItems.length) {
-    throw new Error(
-      "No YouTube content available"
-    );
+  if (!items.length) {
+    throw new Error("No content");
   }
 
-
-  /*
-    Remove duplicates.
-  */
-
-  const uniqueItems = [];
-
-  const seen =
-    new Set();
-
-
-  cleanItems.forEach(
-    item => {
-
-      const id =
-        youtubeId(item) ||
-        item.url ||
-        item.title;
-
-
-      if (
-        seen.has(id)
-      ) {
-        return;
-      }
-
-
-      seen.add(id);
-
-      uniqueItems.push(
-        item
-      );
-
-    }
-  );
-
-
   const latest =
-    uniqueItems[0];
-
+    items[0];
 
   const id =
     youtubeId(latest);
-
 
   const thumb =
     latest.thumbnail ||
@@ -1309,159 +771,100 @@ function renderFeed(
     );
 
 
-  if (featuredThumb) {
-
-    featuredThumb.innerHTML =
-      thumb
-        ? `
-          <img
-            src="${escapeAttribute(thumb)}"
-            alt="${escapeAttribute(
-              latest.title ||
-              "Latest Hitman HQ Gaming content"
-            )}"
-          >
-        `
-        : `
-          <div class="thumb-placeholder">
-            YOUTUBE
-          </div>
-        `;
-
-  }
+  featuredThumb.innerHTML =
+    thumb
+      ? `
+        <img
+          src="${escapeHTML(thumb)}"
+          alt="${escapeHTML(
+            latest.title ||
+            "Latest Hitman HQ content"
+          )}"
+        >
+      `
+      : `
+        <div class="thumb-placeholder">
+          HQ
+        </div>
+      `;
 
 
-  if (featuredTitle) {
-
-    featuredTitle.textContent =
-      latest.title ||
-      "Latest Hitman HQ Gaming content";
-
-  }
+  featuredTitle.textContent =
+    latest.title ||
+    "Latest Hitman HQ content";
 
 
-  if (featuredDate) {
-
-    featuredDate.textContent =
-      formatDate(
-        latest.pubDate
-      );
-
-  }
+  featuredDate.textContent =
+    formatDate(
+      latest.pubDate
+    );
 
 
-  if (featuredWatch) {
-
-    featuredWatch.href =
-      videoUrl(latest);
-
-  }
+  featuredWatch.href =
+    videoUrl(latest);
 
 
-  if (featuredBadge) {
-
-    featuredBadge.textContent =
-      contentBadge(latest);
-
-  }
+  featuredBadge.textContent =
+    contentBadge(latest);
 
 
-  /*
-    Display the next three videos.
-  */
-
-  const cards =
-    uniqueItems
+  contentGrid.innerHTML =
+    items
       .slice(1, 4)
       .map(renderCard)
-      .join("");
-
-
-  if (contentGrid) {
-
-    contentGrid.innerHTML =
-      cards ||
+      .join("")
+      ||
       `
         <div class="loading-card">
           MORE CONTENT COMING SOON
         </div>
       `;
 
-  }
-
 }
 
 
 /* =========================================================
    LIVE STATE
-   ========================================================= */
+========================================================= */
 
-function renderLiveState(
-  live
-) {
+function renderLiveState(live) {
 
   const active =
     live &&
-    (
-      live.is_live === true ||
-      live.isLive === true ||
-      live.live_status === "live" ||
-      live.live_status === "LIVE"
-    );
+    live.is_live === true;
 
 
   if (active) {
 
     const item =
-      normalizeApiItem(
-        live
-      );
+      normalizeApiItem(live);
 
 
-    if (heroLiveBadge) {
-
-      heroLiveBadge.hidden =
-        false;
-
-    }
+    heroLiveBadge.hidden =
+      false;
 
 
-    if (liveStatus) {
-
-      liveStatus.textContent =
-        "LIVE NOW";
-
-      liveStatus.classList.add(
-        "live"
-      );
-
-    }
+    liveStatus.textContent =
+      "LIVE NOW";
 
 
-    if (liveTitle) {
-
-      liveTitle.textContent =
-        item.title ||
-        "Live on YouTube";
-
-    }
+    liveStatus.classList.add(
+      "live"
+    );
 
 
-    if (liveMessage) {
-
-      liveMessage.textContent =
-        "The channel is currently live.";
-
-    }
+    liveTitle.textContent =
+      item.title ||
+      "Hitman HQ is live";
 
 
-    if (liveButton) {
+    liveMessage.textContent =
+      "Hitman HQ is currently live on YouTube.";
 
-      liveButton.href =
-        item.url ||
-        `${CHANNEL_URL}/live`;
 
-    }
+    liveButton.href =
+      item.url ||
+      `${CHANNEL_URL}/live`;
 
 
     return;
@@ -1469,65 +872,45 @@ function renderLiveState(
   }
 
 
-  if (heroLiveBadge) {
-    heroLiveBadge.hidden = true;
-  }
+  heroLiveBadge.hidden =
+    true;
 
 
-  if (liveStatus) {
-
-    liveStatus.textContent =
-      "OFFLINE";
-
-    liveStatus.classList.remove(
-      "live"
-    );
-
-  }
+  liveStatus.textContent =
+    "OFFLINE";
 
 
-  if (liveTitle) {
-
-    liveTitle.textContent =
-      "No live stream detected";
-
-  }
+  liveStatus.classList.remove(
+    "live"
+  );
 
 
-  if (liveMessage) {
-
-    liveMessage.textContent =
-      "Follow the channel to catch the next stream.";
-
-  }
+  liveTitle.textContent =
+    "No live stream detected";
 
 
-  if (liveButton) {
+  liveMessage.textContent =
+    "Follow Hitman HQ on YouTube to catch the next stream.";
 
-    liveButton.href =
-      `${CHANNEL_URL}/live`;
 
-  }
+  liveButton.href =
+    `${CHANNEL_URL}/live`;
 
 }
 
 
 /* =========================================================
    FEATURED SHORT
-   ========================================================= */
+========================================================= */
 
-function renderFeaturedShort(
-  item
-) {
+function renderFeaturedShort(item) {
 
   const normalized =
     normalizeApiItem(item);
 
-
   if (!normalized) {
     return;
   }
-
 
   const id =
     youtubeId(normalized);
@@ -1542,7 +925,6 @@ function renderFeaturedShort(
       normalized.thumbnail ||
       `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`;
 
-
     featuredShortThumb.alt =
       normalized.title ||
       "Latest Hitman HQ YouTube Short";
@@ -1554,23 +936,17 @@ function renderFeaturedShort(
 
     featuredShortTitle.textContent =
       normalized.title ||
-      "Latest YouTube Short";
+      "Latest Hitman HQ Short";
 
   }
 
 
   if (featuredShortDescription) {
 
-    const date =
-      formatDate(
-        normalized.pubDate
-      );
-
-
     featuredShortDescription.textContent =
-      date
-        ? `Latest Short • ${date}`
-        : "Latest YouTube Short";
+      `Latest Short • ${formatDate(
+        normalized.pubDate
+      )}`;
 
   }
 
@@ -1579,11 +955,7 @@ function renderFeaturedShort(
 
     featuredShortWatch.href =
       normalized.url ||
-      (
-        id
-          ? `https://www.youtube.com/shorts/${id}`
-          : SHORTS_URL
-      );
+      `https://www.youtube.com/shorts/${id}`;
 
   }
 
@@ -1591,8 +963,8 @@ function renderFeaturedShort(
 
 
 /* =========================================================
-   LOAD HQ API
-   ========================================================= */
+   HQ API
+========================================================= */
 
 async function loadHQApi() {
 
@@ -1600,21 +972,15 @@ async function loadHQApi() {
     await fetch(
       `${HITMAN_HQ_API}?t=${Date.now()}`,
       {
-        cache: "no-store",
-
-        headers: {
-          "Accept": "application/json"
-        }
+        cache: "no-store"
       }
     );
 
 
   if (!response.ok) {
-
     throw new Error(
-      `API returned ${response.status}`
+      "HITMAN HQ API unavailable"
     );
-
   }
 
 
@@ -1624,23 +990,15 @@ async function loadHQApi() {
 
   if (
     !data ||
-    typeof data !== "object"
+    data.status !== "online"
   ) {
 
     throw new Error(
-      "Invalid API response"
+      "HITMAN HQ API offline"
     );
 
   }
 
-
-  /*
-    We intentionally do NOT check:
-    data.status === "online"
-
-    This prevents valid API responses
-    from being rejected.
-  */
 
   return data;
 
@@ -1648,97 +1006,8 @@ async function loadHQApi() {
 
 
 /* =========================================================
-   EXTRACT API CONTENT
-   ========================================================= */
-
-function extractApiItems(
-  data
-) {
-
-  if (
-    !data ||
-    typeof data !== "object"
-  ) {
-
-    return [];
-
-  }
-
-
-  const items = [];
-
-
-  if (data.latest) {
-    items.push(
-      data.latest
-    );
-  }
-
-
-  if (
-    Array.isArray(
-      data.recent
-    )
-  ) {
-
-    items.push(
-      ...data.recent
-    );
-
-  }
-
-
-  if (
-    Array.isArray(
-      data.items
-    )
-  ) {
-
-    items.push(
-      ...data.items
-    );
-
-  }
-
-
-  if (
-    Array.isArray(
-      data.videos
-    )
-  ) {
-
-    items.push(
-      ...data.videos
-    );
-
-  }
-
-
-  if (
-    Array.isArray(
-      data.content
-    )
-  ) {
-
-    items.push(
-      ...data.content
-    );
-
-  }
-
-
-  return items
-    .map(
-      normalizeApiItem
-    )
-    .filter(Boolean);
-
-}
-
-
-/* =========================================================
    LOAD YOUTUBE
-   ========================================================= */
+========================================================= */
 
 async function loadYouTube() {
 
@@ -1748,110 +1017,99 @@ async function loadYouTube() {
       await loadHQApi();
 
 
-    const items =
-      extractApiItems(data);
-
-
-    if (!items.length) {
-
-      throw new Error(
-        "API returned no YouTube content"
+    const latest =
+      normalizeApiItem(
+        data.latest
       );
 
+
+    if (!latest) {
+      throw new Error(
+        "No latest content"
+      );
     }
 
 
     renderFeed(
-      items
+      [
+        latest,
+
+        ...(
+          Array.isArray(
+            data.recent
+          )
+            ? data.recent
+                .map(normalizeApiItem)
+                .filter(Boolean)
+            : []
+        )
+
+      ]
     );
 
 
     renderLiveState(
-      data.live ||
-      data.liveStream ||
-      data.currentLive ||
-      null
+      data.live
     );
 
 
-    document.documentElement
-      .setAttribute(
-        "data-youtube-status",
-        "online"
-      );
+  } catch (_) {
 
-  } catch (error) {
-
-    console.warn(
-      "YouTube feed unavailable:",
-      error
-    );
+    featuredTitle.textContent =
+      "Hitman HQ Gaming";
 
 
-    if (featuredTitle) {
-
-      featuredTitle.textContent =
-        "HITMAN HQ GAMING";
-
-    }
+    featuredDate.textContent =
+      "Open YouTube for the latest content";
 
 
-    if (featuredDate) {
-
-      featuredDate.textContent =
-        "Latest content available on YouTube";
-
-    }
-
-
-    if (featuredThumb) {
-
-      featuredThumb.innerHTML = `
-
+    featuredThumb.innerHTML =
+      `
         <div class="thumb-placeholder">
           YOUTUBE
         </div>
-
       `;
 
-    }
+
+    featuredWatch.href =
+      CHANNEL_URL;
 
 
-    if (featuredWatch) {
-
-      featuredWatch.href =
-        CHANNEL_URL;
-
-    }
-
-
-    if (contentGrid) {
-
-      contentGrid.innerHTML = `
-
+    contentGrid.innerHTML =
+      `
         <div class="loading-card">
-          YOUTUBE FEED TEMPORARILY UNAVAILABLE
+          OPEN YOUTUBE FOR LATEST CONTENT
         </div>
 
         <div class="loading-card">
-          OPEN CHANNEL
+          OPEN YOUTUBE FOR LATEST CONTENT
         </div>
 
+        <div class="loading-card">
+          OPEN YOUTUBE FOR LATEST CONTENT
+        </div>
       `;
 
-    }
+
+    liveStatus.textContent =
+      "CHECK YOUTUBE";
 
 
-    renderLiveState(
-      null
+    liveStatus.classList.remove(
+      "live"
     );
 
 
-    document.documentElement
-      .setAttribute(
-        "data-youtube-status",
-        "offline"
-      );
+    liveTitle.textContent =
+      "YouTube status unavailable";
+
+
+    liveMessage.textContent =
+      "The channel is still available below while the public feed reconnects.";
+
+
+    liveButton.href =
+      CHANNEL_URL;
 
   }
 
@@ -1860,7 +1118,7 @@ async function loadYouTube() {
 
 /* =========================================================
    LOAD LATEST SHORT
-   ========================================================= */
+========================================================= */
 
 async function loadLatestShort() {
 
@@ -1870,30 +1128,14 @@ async function loadLatestShort() {
       await loadHQApi();
 
 
-    let latestShort =
+    const latestShort =
       data.latest_short ||
-      data.latestShort ||
-      null;
-
-
-    /*
-      Fallback:
-      Search API content for a Short.
-    */
-
-    if (!latestShort) {
-
-      const items =
-        extractApiItems(data);
-
-
-      latestShort =
-        items.find(
-          isShort
-        ) ||
-        null;
-
-    }
+      (
+        data.latest &&
+        isShort(data.latest)
+          ? data.latest
+          : null
+      );
 
 
     if (!latestShort) {
@@ -1909,13 +1151,8 @@ async function loadLatestShort() {
       latestShort
     );
 
-  } catch (error) {
 
-    console.warn(
-      "Latest Short unavailable:",
-      error
-    );
-
+  } catch (_) {
 
     if (featuredShortTitle) {
 
@@ -1928,7 +1165,7 @@ async function loadLatestShort() {
     if (featuredShortDescription) {
 
       featuredShortDescription.textContent =
-        "Open the Shorts feed to see the latest content.";
+        "Open the Shorts feed to see the latest Hitman HQ Short.";
 
     }
 
@@ -1936,7 +1173,7 @@ async function loadLatestShort() {
     if (featuredShortWatch) {
 
       featuredShortWatch.href =
-        SHORTS_URL;
+        "https://www.youtube.com/@HitmanHQGaming/shorts";
 
     }
 
@@ -1946,14 +1183,13 @@ async function loadLatestShort() {
 
 
 /* =========================================================
-   MOBILE NAVIGATION
-   ========================================================= */
+   MOBILE NAV
+========================================================= */
 
 const menuToggle =
   document.querySelector(
     ".menu-toggle"
   );
-
 
 const nav =
   document.querySelector(
@@ -1975,7 +1211,6 @@ if (
           "open"
         );
 
-
       menuToggle.setAttribute(
         "aria-expanded",
         String(open)
@@ -1984,107 +1219,25 @@ if (
     }
   );
 
-
-  document
-    .querySelectorAll(
-      ".nav-links a"
-    )
-    .forEach(
-      link => {
-
-        link.addEventListener(
-          "click",
-          () => {
-
-            nav.classList.remove(
-              "open"
-            );
-
-
-            menuToggle.setAttribute(
-              "aria-expanded",
-              "false"
-            );
-
-          }
-        );
-
-      }
-    );
-
 }
 
 
-/* =========================================================
-   SOCIAL UPLINK INTERACTION
-   ========================================================= */
+document
+  .querySelectorAll(
+    ".nav-links a"
+  )
+  .forEach(
+    link => {
 
-function setupSocialInteractions() {
-
-  const socialCards =
-    document.querySelectorAll(
-      ".social-uplink, .social-tile"
-    );
-
-
-  if (!socialCards.length) {
-    return;
-  }
-
-
-  socialCards.forEach(
-    card => {
-
-      /*
-        Mouse / pointer selection.
-      */
-
-      card.addEventListener(
-        "pointerdown",
+      link.addEventListener(
+        "click",
         () => {
 
-          socialCards.forEach(
-            item => {
-
-              item.classList.remove(
-                "selected"
-              );
-
-            }
-          );
-
-
-          card.classList.add(
-            "selected"
-          );
-
-        }
-      );
-
-
-      /*
-        Keyboard focus.
-      */
-
-      card.addEventListener(
-        "focus",
-        () => {
-
-          card.classList.add(
-            "selected"
-          );
-
-        }
-      );
-
-
-      card.addEventListener(
-        "blur",
-        () => {
-
-          card.classList.remove(
-            "selected"
-          );
+          if (nav) {
+            nav.classList.remove(
+              "open"
+            );
+          }
 
         }
       );
@@ -2092,12 +1245,21 @@ function setupSocialInteractions() {
     }
   );
 
-}
+
+/* =========================================================
+   INITIALIZE
+========================================================= */
+
+renderGames();
+
+loadYouTube();
+
+loadLatestShort();
 
 
 /* =========================================================
    HQ EASTER EGG
-   ========================================================= */
+========================================================= */
 
 (() => {
 
@@ -2113,7 +1275,6 @@ function setupSocialInteractions() {
 
 
   let clicks = 0;
-
   let timer;
 
 
@@ -2123,7 +1284,6 @@ function setupSocialInteractions() {
 
       clicks += 1;
 
-
       clearTimeout(
         timer
       );
@@ -2132,9 +1292,7 @@ function setupSocialInteractions() {
       timer =
         setTimeout(
           () => {
-
             clicks = 0;
-
           },
           1800
         );
@@ -2158,51 +1316,36 @@ function setupSocialInteractions() {
         "agent-easter-egg";
 
 
-      overlay.innerHTML = `
+      overlay.innerHTML =
+        `
+          <div class="agent-easter-box">
 
-        <div class="agent-easter-box">
+            <div class="agent-easter-target"></div>
 
-          <div
-            class="agent-easter-target">
-          </div>
+            <div class="agent-easter-kicker">
+              HITMAN HEADQUARTERS // CLASSIFIED
+            </div>
 
+            <div class="agent-easter-title">
+              ACCESS GRANTED
+            </div>
 
-          <div
-            class="agent-easter-kicker">
+            <div
+              class="agent-easter-copy"
+              id="agentEasterCopy"
+            >
+              Verifying clearance...
+            </div>
 
-            HITMAN HEADQUARTERS // CLASSIFIED
-
-          </div>
-
-
-          <div
-            class="agent-easter-title">
-
-            ACCESS GRANTED
-
-          </div>
-
-
-          <div
-            class="agent-easter-copy"
-            id="agentEasterCopy">
-
-            Verifying clearance...
+            <div
+              class="agent-easter-status"
+              id="agentEasterStatus"
+            >
+              INITIALIZING AGENT PROTOCOL
+            </div>
 
           </div>
-
-
-          <div
-            class="agent-easter-status"
-            id="agentEasterStatus">
-
-            INITIALIZING AGENT PROTOCOL
-
-          </div>
-
-        </div>
-
-      `;
+        `;
 
 
       document.body.appendChild(
@@ -2214,7 +1357,6 @@ function setupSocialInteractions() {
         overlay.querySelector(
           "#agentEasterCopy"
         );
-
 
       const status =
         overlay.querySelector(
@@ -2270,16 +1412,12 @@ function setupSocialInteractions() {
             steps[i];
 
 
-          if (copy) {
-            copy.textContent =
-              first;
-          }
+          copy.textContent =
+            first;
 
 
-          if (status) {
-            status.textContent =
-              second;
-          }
+          status.textContent =
+            second;
 
 
           i += 1;
@@ -2305,9 +1443,7 @@ function setupSocialInteractions() {
 
       setTimeout(
         () => {
-
           overlay.remove();
-
         },
         6200
       );
@@ -2319,8 +1455,8 @@ function setupSocialInteractions() {
 
 
 /* =========================================================
-   SUPPORT / UPI COPY
-   ========================================================= */
+   UPI COPY
+========================================================= */
 
 document
   .querySelectorAll(
@@ -2342,9 +1478,7 @@ document
 
             await navigator
               .clipboard
-              .writeText(
-                value
-              );
+              .writeText(value);
 
 
             const old =
@@ -2365,6 +1499,7 @@ document
               1400
             );
 
+
           } catch (_) {
 
             window.prompt(
@@ -2379,26 +1514,3 @@ document
 
     }
   );
-
-
-/* =========================================================
-   INITIALIZE WEBSITE
-   ========================================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  () => {
-
-    renderGames();
-
-    setupGameArchive();
-
-    setupSocialInteractions();
-
-    loadYouTube();
-
-    loadLatestShort();
-
-  }
-);
-```
